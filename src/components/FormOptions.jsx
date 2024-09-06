@@ -1,10 +1,28 @@
 import React from "react";
+import FormOptionLayout from "./FormOptionLayout";
+import FormTextLayout from "./FormTextLayout";
 
-const FormOptions = ({ options, selectedAnswer, onSelect }) => {
-  console.log("Selected Answer:", selectedAnswer, "Options:", options);
-
+const FormOptions = ({ type, options, selectedAnswer, onSelect }) => {
+  if (type === "Mcq") {
+    return (
+      <FormOptionLayout
+        options={options}
+        selectedAnswer={selectedAnswer}
+        onSelect={onSelect}
+      />
+    );
+  }
+  if (type === "text") {
+    return (
+      <FormTextLayout
+        options={options}
+        selectedAnswer={selectedAnswer}
+        onSelect={onSelect}
+      />
+    );
+  }
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 justify-evenly items-center font-poppins text-gray-800">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 justify-evenly items-center font-poppins text-gray-800 w-full">
       {options.map((option) => (
         <button
           key={option.id}
@@ -15,7 +33,6 @@ const FormOptions = ({ options, selectedAnswer, onSelect }) => {
           } shadow-effect w-full text-center`}
           onClick={() => onSelect(option.name)}
         >
-          {/* RADIO BTN */}
           <div className="w-full">
             <div
               className={`flex mt-2 ml-2 w-5 h-5 rounded-full border-2 relative ${
