@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { nextStep, previousStep, setAnswer } from "../redux/slices/formSlice";
 import FormOptions from "./FormOptions";
-import questions from "../utils/Questions";
+import questions from "../assets/data/Questions";
 
 const FormCard = ({ setIsSubmitted }) => {
   const dispatch = useDispatch();

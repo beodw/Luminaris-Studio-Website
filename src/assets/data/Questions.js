@@ -1,9 +1,9 @@
-import HandShake from "../assets/images/handshake.png";
-import Rocket from "../assets/images/rocket.png";
-import Scale from "../assets/images/scale.png";
-import USA from "../assets/images/USAFlag.png";
-import Canada from "../assets/images/canadaFlag.png";
-import Others from "../assets/images/OtherFlag.png";
+import HandShake from "../images/handshake.png";
+import Rocket from "../images/rocket.png";
+import Scale from "../images/scale.png";
+import USA from "../images/USAFlag.png";
+import Canada from "../images/canadaFlag.png";
+import Others from "../images/OtherFlag.png";
 
 const questions = {
   1: {
@@ -23,6 +23,7 @@ const questions = {
       2: 4, // Leads to question 3 if selected option 2
       3: 2, // Leads to question 4 if selected option 3
     },
+    previous: null,
   },
   2: {
     question: "Where is your business based?",
@@ -36,6 +37,8 @@ const questions = {
       2: 5,
       3: 5,
     },
+    previous: 1,
+
   },
 
   4: {
@@ -49,6 +52,7 @@ const questions = {
       1: 19,
       2: 19,
     },
+    previous: 1,
   },
   5: {
     question: "What type of business do you have?",
@@ -69,6 +73,7 @@ const questions = {
       5: 6,
       6: 6,
     },
+    previous: 2,
   },
   6: {
     question: "Please describe your business in 1- 3 sentences MAX",
@@ -77,6 +82,7 @@ const questions = {
     next: {
       1: 7,
     },
+    previous: 5,
   },
   7: {
     question: "Annual Revenue?",
@@ -97,6 +103,7 @@ const questions = {
       5: 8,
       6: 8,
     },
+    previous: 6,
   },
   8: {
     question:
@@ -116,6 +123,7 @@ const questions = {
       4: 9,
       5: 9,
     },
+    previous: 7,
   },
   9: {
     question: "(2/2) Annual Revenue?",
@@ -132,6 +140,7 @@ const questions = {
       3: 10,
       4: 10,
     },
+    previous: 8,
   },
   10: {
     question:
@@ -149,6 +158,7 @@ const questions = {
       3: 11,
       4: 11,
     },
+    previous: 9,
   },
   11: {
     question:
@@ -170,6 +180,7 @@ const questions = {
       5: 12,
       6: 12,
     },
+    previous: 10,
   },
   12: {
     question: "Where did you FIRST hear of LS?*",
@@ -196,6 +207,7 @@ const questions = {
       8: 13,
       9: 13,
     },
+    previous: 11,
   },
   13: {
     question:
@@ -211,6 +223,7 @@ const questions = {
       3: 14,
       4: 14,
     },
+    previous: 12,
   },
   14: {
     question: "First & Last Name?",
@@ -223,6 +236,7 @@ const questions = {
       1: 15,
       2: 15,
     },
+    previous: 13,
   },
   15: {
     question: "Company Website URL?",
@@ -231,6 +245,7 @@ const questions = {
     next: {
       1: 16,
     },
+    previous: 14,
   },
   16: {
     question: "What's Your Phone Number?",
@@ -239,6 +254,7 @@ const questions = {
     next: {
       1: 17,
     },
+    previous: 15,
   },
   17: {
     question: "What's Your Best Email?",
@@ -247,19 +263,9 @@ const questions = {
     next: {
       1: true,
     },
+    previous: 16,
   },
-  18: {
-    question: `Do you want us to consider your company to become a portfolio company? If not, please select "NO" and we will remove your company from consideration and only add you to our email list. CLICK THEN HIT SUBMIT*`,
-    type: "Mcq",
-    options: [
-      { name: "Yes", type: "Mcq", id: 1 },
-      { name: "No", type: "Mcq", id: 2 },
-    ],
-    next: {
-      1: null,
-      2: null,
-    },
-  },
+
   19: {
     question: "(2/2) Annual Revenue?",
     type: "Mcq",
@@ -275,6 +281,7 @@ const questions = {
       3: 20,
       4: 20,
     },
+    previous: 4,
   },
   20: {
     question: "What's Your Best Email?",
@@ -283,6 +290,7 @@ const questions = {
     next: {
       1: true,
     },
+    previous: 19,
   },
 };
 

@@ -55,7 +55,7 @@
 //   formSlice.actions;
 // export default formSlice.reducer;
 import { createSlice } from "@reduxjs/toolkit";
-import questions from "../../utils/Questions";
+import questions from "../../assets/data/Questions";
 
 const initialState = {
   currentStep: 1,
@@ -96,8 +96,17 @@ const formSlice = createSlice({
       }
     },
     previousStep(state) {
-      if (state.currentStep > 1) {
-        state.currentStep -= 1;
+      const currentStep = state.currentStep;
+
+      // Check if there's a previous step for the current question
+      const previousStepId = questions[currentStep]?.previous;
+
+      if (previousStepId) {
+        state.currentStep = previousStepId;
+      } else if (currentStep > 1) {
+        state.currentStep -= 1; // Fallback to decrement if no previous step ID is found
+      } else {
+        console.error("No previous step ID found");
       }
     },
     setAnswer(state, action) {
