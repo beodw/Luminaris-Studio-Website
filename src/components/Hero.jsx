@@ -22,9 +22,9 @@ const Hero = () => {
                 />
               </div>
               <div className="control">
-                <a className="button button-primary button-block" href="#">
+                {/* <a className="button button-primary button-block" href="/">
                   Get Started
-                </a>
+                </a> */}
               </div>
             </div>
           </div>

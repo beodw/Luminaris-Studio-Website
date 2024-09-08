@@ -108,7 +108,7 @@ const TestimonalSection = () => {
                   </div>
                   <div className="testimonial-footer">
                     <div className="testimonial-link">
-                      <a href="#">{testimonial.username}</a>
+                      <a href="/">{testimonial.username}</a>
                     </div>
                   </div>
                 </div>

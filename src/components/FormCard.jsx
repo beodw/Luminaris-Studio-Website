@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { nextStep, previousStep, setAnswer } from "../redux/slices/formSlice";
 import FormOptions from "./FormOptions";
 import questions from "../assets/data/Questions";
@@ -10,8 +11,86 @@ const FormCard = ({ setIsSubmitted }) => {
   const answers = useSelector((state) => state.form.answers);
   const formCompleted = useSelector((state) => state.form.formCompleted);
 
+  const [errors, setErrors] = useState({});
+  const [formValidated, setFormValidated] = useState(false);
+  const [containerHeight, setContainerHeight] = useState("auto");
+
+  const containerRef = useRef(null);
+  const contentRef = useRef(null);
+
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validatePhoneNumber = (phone) =>
+    /^(\+?\d{1,4}[\s-]?)?(\(?\d{2,4}\)?[\s-]?)?\d{2,4}[\s-]?\d{4,10}$/.test(
+      phone
+    );
+
+  const validateForm = () => {
+    const currentQuestion = questions[currentStep];
+    let isValid = true;
+    let tempErrors = {};
+
+    if (!currentQuestion) return true;
+
+    if (currentQuestion.type === "MultipleSelect") {
+      const value = answers[currentStep] || [];
+      if (value.length === 0) {
+        isValid = false;
+        tempErrors.general = "Please select at least one option.";
+      }
+    } else if (currentQuestion.type === "SingleSelect") {
+      const value = answers[currentStep] || "";
+      if (currentQuestion.required && !value) {
+        isValid = false;
+        tempErrors.general = "Please select an option.";
+      }
+    } else {
+      currentQuestion.options.forEach((option) => {
+        const value = answers[currentStep]?.[option.id] || "";
+        console.log(`Validating ${option.id}: ${value}`);
+
+        if (option.required && !value) {
+          tempErrors[option.id] = "This field is required.";
+          isValid = false;
+        } else if (option.type === "email" && !validateEmail(value)) {
+          tempErrors[option.id] = "Invalid email address.";
+          isValid = false;
+        } else if (option.type === "tel" && !validatePhoneNumber(value)) {
+          tempErrors[option.id] = "Invalid phone number.";
+          isValid = false;
+        } else if (option.type === "text" && option.required && !value.trim()) {
+          tempErrors[option.id] = "This field is required.";
+          isValid = false;
+        }
+      });
+    }
+
+    console.log("Validation errors:", tempErrors);
+    setErrors(tempErrors);
+    return isValid;
+  };
+
+  useEffect(() => {
+    // Update container height based on content height
+    if (contentRef.current && currentStep !== 1) {
+      setContainerHeight(`${contentRef.current.scrollHeight + 30}px`);
+    }
+  }, [currentStep]);
+
+  const handleSelect = (selectedItems) => {
+    dispatch(setAnswer({ step: currentStep, answer: selectedItems }));
+    const isValid = validateForm();
+    setFormValidated(isValid);
+  };
+
   const handleNext = () => {
-    dispatch(nextStep());
+    const isValid = validateForm();
+    console.log(isValid);
+
+    if (isValid) {
+      dispatch(nextStep());
+    } else {
+      console.log("Form validation failed. Cannot proceed to the next step.");
+    }
   };
 
   const handleSubmit = () => {
@@ -22,31 +101,45 @@ const FormCard = ({ setIsSubmitted }) => {
     dispatch(previousStep());
   };
 
-  const handleSelect = (answer) => {
-    dispatch(setAnswer({ step: currentStep, answer }));
-  };
-
   const currentQuestion = questions[currentStep] || {};
 
   return (
     <div className="space-y-5 rounded-md overflow-hidden shadow-2xl mt-9">
-      <div className="flex flex-col items-center justify-center w-[900px] mt-3">
-        <h1 className="text-[1rem] text-center font-poppins font-normal px-4 leading-[-3px]">
-          {currentQuestion.question}
-        </h1>
-        {currentQuestion.question && (
-          <FormOptions
-            type={currentQuestion.type || null}
-            options={currentQuestion.options}
-            selectedAnswer={answers[currentStep]}
-            onSelect={handleSelect}
-          />
-        )}
+      <div
+        className="questions-container flex flex-col items-center min-h-[40px] justify-center w-full md:w-[900px] mt-3"
+        style={{ height: containerHeight }}
+        ref={containerRef}
+      >
+        <TransitionGroup>
+          <CSSTransition
+            key={currentStep}
+            timeout={300}
+            classNames="fade"
+            className="w-full md:w-[900px] "
+            onEnter={() => setContainerHeight("auto")}
+            onExit={() => setContainerHeight("auto")}
+          >
+            <div ref={contentRef}>
+              <h1 className="text-[1rem] text-center font-poppins font-normal px-4 leading-[-3px]">
+                {currentQuestion.question}
+              </h1>
+              {currentQuestion.question && (
+                <FormOptions
+                  type={currentQuestion.type || null}
+                  options={currentQuestion.options}
+                  selectedAnswer={answers[currentStep]}
+                  onSelect={handleSelect}
+                  errors={errors}
+                />
+              )}
+            </div>
+          </CSSTransition>
+        </TransitionGroup>
       </div>
-      <div className="flex flex-col sm:flex-row justify-between w-full bg-blue-700 mb-5 gap-2 sm:gap-5">
+      <div className="flex flex-row justify-between w-full bg-blue-700 mb-5 gap-2 sm:gap-5">
         <button
-          className={`px-4 py-3 rounded min-w-[200px] text-[#d4d4d4] cursor-pointer ${
-            currentStep === 1 && "opacity-0 cursor-default"
+          className={`px-4 py-3 rounded min-w-[200px] text-[#d4d4d4] ${
+            currentStep === 1 ? "opacity-0 cursor-default" : "cursor-pointer"
           }`}
           onClick={handleBack}
           disabled={currentStep === 1}
@@ -55,25 +148,13 @@ const FormCard = ({ setIsSubmitted }) => {
         </button>
 
         <button
-          className="text-white hover:text-[#cdcdcd] px-4 py-3 rounded-br-lg rounded-bl-lg min-w-[200px] flex items-center justify-center gap-3 cursor-pointer"
+          className={`text-white hover:text-[#cdcdcd] px-4 py-3 rounded-br-lg rounded-bl-lg min-w-[200px] flex items-center justify-center gap-3 ${
+            !formValidated ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+          }`}
           onClick={formCompleted ? handleSubmit : handleNext}
-          disabled={!answers[currentStep] && !formCompleted}
+          disabled={!formValidated}
         >
           {formCompleted ? "Submit" : "Next"}
-          {!formCompleted && (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"npm s
-              className="size-5"
-            >
-              <path
-                fillRule="evenodd"
-                d="M16.72 7.72a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 0 1 0 1.06l-3.75 3.75a.75.75 0 1 1-1.06-1.06l2.47-2.47H3a.75.75 0 0 1 0-1.5h16.19l-2.47-2.47a.75.75 0 0 1 0-1.06Z"
-                clipRule="evenodd"
-              />
-            </svg>
-          )}
         </button>
       </div>
     </div>

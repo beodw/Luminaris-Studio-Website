@@ -2,3 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.input-error {
+  border-color: red;
+  animation: shake 0.5s ease;
+}
+
+.questions-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  transition: height 0.1s ease; /* Smooth transition for height */
+}
+
+.fade-enter {
+  opacity: 0;
+  transform: translateX(-20px);
+  position: absolute;
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}

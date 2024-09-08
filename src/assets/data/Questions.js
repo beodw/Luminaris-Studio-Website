@@ -8,6 +8,8 @@ import Others from "../images/OtherFlag.png";
 const questions = {
   1: {
     question: "What best describes your business?",
+    type: "SingleSelect",
+    required: true,
     options: [
       {
         name: "I want to sell my business",
@@ -27,20 +29,31 @@ const questions = {
   },
   2: {
     question: "Where is your business based?",
+    type: "SingleSelect",
     options: [
       { name: "USA", type: "Mcq", img: USA, id: 1 },
       { name: "Canada", type: "Mcq", img: Canada, id: 2 },
       { name: "Other", type: "Mcq", img: Others, id: 3 },
     ],
     next: {
-      1: 5,
+      1: 3,
       2: 5,
       3: 5,
     },
     previous: 1,
-
   },
-
+  3: {
+    question: "What online platform do you want for your business?",
+    type: "MultipleSelect",
+    options: [
+      { name: "Website", type: "Mcq", id: 1 },
+      { name: "Mobile App", type: "Mcq", id: 2 },
+    ],
+    next: {
+      1: 19,
+    },
+    previous: 4,
+  },
   4: {
     question: "Do you want to start your business now or later?",
     type: "Mcq",
@@ -49,8 +62,8 @@ const questions = {
       { name: "Later", type: "Mcq", id: 2 },
     ],
     next: {
-      1: 19,
-      2: 19,
+      1: 3,
+      2: 3,
     },
     previous: 1,
   },
@@ -76,7 +89,7 @@ const questions = {
     previous: 2,
   },
   6: {
-    question: "Please describe your business in 1- 3 sentences MAX",
+    question: "Please describe your business in 1-3 sentences MAX",
     type: "text",
     options: [{ name: "Decription", type: "textarea", id: 1 }],
     next: {
@@ -184,7 +197,7 @@ const questions = {
   },
   12: {
     question: "Where did you FIRST hear of LS?*",
-    type: "Mcq",
+    type: "MultipleSelect",
     options: [
       { name: "Instagram", type: "Mcq", id: 1 },
       { name: "Facebook", type: "Mcq", id: 2 },
@@ -198,14 +211,6 @@ const questions = {
     ],
     next: {
       1: 13,
-      2: 13,
-      3: 13,
-      4: 13,
-      5: 13,
-      6: 13,
-      7: 13,
-      8: 13,
-      9: 13,
     },
     previous: 11,
   },
@@ -241,7 +246,7 @@ const questions = {
   15: {
     question: "Company Website URL?",
     type: "text",
-    options: [{ name: "Url", type: "text", id: 1 }],
+    options: [{ name: "Url", required: true, type: "text", id: 1 }],
     next: {
       1: 16,
     },
@@ -250,7 +255,9 @@ const questions = {
   16: {
     question: "What's Your Phone Number?",
     type: "text",
-    options: [{ name: "Num", type: "text", id: 1 }],
+    options: [
+      { name: "phone e.g: 0321987654", required: true, type: "tel", id: 1 },
+    ],
     next: {
       1: 17,
     },
@@ -259,13 +266,14 @@ const questions = {
   17: {
     question: "What's Your Best Email?",
     type: "text",
-    options: [{ name: "email", type: "text", id: 1 }],
+    options: [
+      { name: "JohnDoe@gmail.com", required: true, type: "email", id: 1 },
+    ],
     next: {
       1: true,
     },
     previous: 16,
   },
-
   19: {
     question: "(2/2) Annual Revenue?",
     type: "Mcq",
@@ -281,12 +289,14 @@ const questions = {
       3: 20,
       4: 20,
     },
-    previous: 4,
+    previous: 3,
   },
   20: {
     question: "What's Your Best Email?",
     type: "text",
-    options: [{ name: "email", type: "text", id: 1 }],
+    options: [
+      { name: "JohnDoe@gmail.com", required: true, type: "email", id: 1 },
+    ],
     next: {
       1: true,
     },

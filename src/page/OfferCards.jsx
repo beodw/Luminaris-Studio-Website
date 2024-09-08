@@ -11,7 +11,7 @@ const OfferCards = () => {
         <h2 className="text-[42px] font-poppins">
           Simple, straight forward pricing
         </h2>
-        <p className="text-[18px]">Choose a plan followed to your needs</p>
+        <p className="text-[18px] font-poppins">Choose a plan followed to your needs</p>
       </div>
 
       <div className="relative ">

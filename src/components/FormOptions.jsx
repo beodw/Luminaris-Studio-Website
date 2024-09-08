@@ -1,8 +1,10 @@
+// FormOptions.js
 import React from "react";
 import FormOptionLayout from "./FormOptionLayout";
 import FormTextLayout from "./FormTextLayout";
+import FormMultipleSelectLayout from "./FormMultipleSelectLayout";
 
-const FormOptions = ({ type, options, selectedAnswer, onSelect }) => {
+const FormOptions = ({ type, options, selectedAnswer, onSelect, errors }) => {
   if (type === "Mcq") {
     return (
       <FormOptionLayout
@@ -18,11 +20,22 @@ const FormOptions = ({ type, options, selectedAnswer, onSelect }) => {
         options={options}
         selectedAnswer={selectedAnswer}
         onSelect={onSelect}
+        errors={errors}
+      />
+    );
+  }
+  if (type === "MultipleSelect") {
+    return (
+      <FormMultipleSelectLayout
+        options={options}
+        selectedAnswer={selectedAnswer}
+        onSelect={onSelect}
+        errors={errors}
       />
     );
   }
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 justify-evenly items-center font-poppins text-gray-800 w-full">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 pb-2 mb-1 justify-evenly items-center font-poppins text-gray-800 w-full">
       {options.map((option) => (
         <button
           key={option.id}
@@ -46,9 +59,9 @@ const FormOptions = ({ type, options, selectedAnswer, onSelect }) => {
               )}
             </div>
           </div>
-          <div className="flex flex-col items-center px-4 xl:px-[9px] pb-4 ">
+          <div className="flex flex-col gap-2 sm:gap-0 items-center px-4 xl:px-[9px] pb-4 ">
             {option.img && (
-              <img src={option.img} alt="" className="w-16 h-auto" />
+              <img src={option.img} alt="" className=" w-9 md:w-16 h-auto" />
             )}
             <span className="font-normal">{option.name}</span>
           </div>

@@ -1,6 +1,7 @@
 import React from "react";
 
 const FormOptionLayout = ({ options, selectedAnswer, onSelect }) => {
+  
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2  gap-4 px-4 justify-evenly items-center font-poppins  w-full text-gray-800">
       {options.map((option) => (
