@@ -28,8 +28,9 @@ const questions = {
     previous: null,
   },
   2: {
-    question: "Where is your business based?",
+    question: "Where is your business based?*",
     type: "SingleSelect",
+    required: true,
     options: [
       { name: "USA", type: "Mcq", img: USA, id: 1 },
       { name: "Canada", type: "Mcq", img: Canada, id: 2 },

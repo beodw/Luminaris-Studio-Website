@@ -14,6 +14,7 @@ const FormCard = ({ setIsSubmitted }) => {
   const [errors, setErrors] = useState({});
   const [containerHeight, setContainerHeight] = useState("auto");
   const [isNextButtonDisabled, setIsNextButtonDisabled] = useState(true);
+  const [hasNextClicked, setHasNextClicked] = useState(false);
 
   const containerRef = useRef(null);
   const contentRef = useRef(null);
@@ -40,27 +41,42 @@ const FormCard = ({ setIsSubmitted }) => {
       }
     } else if (currentQuestion.type === "SingleSelect") {
       const value = answers[currentStep] || "";
+      console.log(
+        currentQuestion.required && value === "" && hasNextClicked === true
+      );
 
-      if (currentQuestion.required && !value) {
+      if (currentQuestion.required && value === "" && hasNextClicked === true) {
         isValid = false;
         tempErrors.general = "Please select an option.";
       }
     } else {
       currentQuestion.options.forEach((option) => {
-        const value = answers[currentStep]?.[option.id] || "";
-        console.log(value);
+        let value = answers[currentStep] || "";
+        console.log(answers[currentStep]);
 
-        if (option.required && !value) {
+        if (option.type === "tel" || option.type === "email") {
+          value = answers[currentStep]?.[option.id] || "";
+        }
+
+        console.log(value);
+        if (option.required && !value && hasNextClicked) {
           tempErrors[option.id] = "This field is required.";
           isValid = false;
         } else if (option.type === "email" && !validateEmail(value)) {
           tempErrors[option.id] = "Invalid email address.";
           isValid = false;
         } else if (option.type === "tel" && !validatePhoneNumber(value)) {
-          tempErrors[option.id] = "Invalid phone number.";
+          tempErrors.general = "Invalid phone number.";
           isValid = false;
-        } else if (option.type === "text" && option.required && !value.trim()) {
-          tempErrors[option.id] = "This field is required.";
+        } else if (option.type === "Mcq" && hasNextClicked && value === "") {
+          tempErrors.general = "Please select an option.";
+          isValid = false;
+        } else if (
+          option.type === "textarea" &&
+          hasNextClicked &&
+          value === ""
+        ) {
+          tempErrors.general = "Please select an option.";
           isValid = false;
         }
       });
@@ -74,7 +90,7 @@ const FormCard = ({ setIsSubmitted }) => {
   useEffect(() => {
     // Re-validate form whenever the answer changes
     validateForm();
-  }, [answers, currentStep]);
+  }, [answers, hasNextClicked, currentStep]);
 
   useEffect(() => {
     if (contentRef.current && currentStep !== 1) {
@@ -97,17 +113,23 @@ const FormCard = ({ setIsSubmitted }) => {
     }
     // Validate after setting the answer
     validateForm();
+    setHasNextClicked(true);
   };
 
   const handleNext = () => {
-    if (!isNextButtonDisabled) {
+    setHasNextClicked(true);
+    console.log("!isNextButtonDisabled", !isNextButtonDisabled);
+    console.log("hasNextClicked", hasNextClicked);
+
+    if (!isNextButtonDisabled && hasNextClicked) {
       dispatch(nextStep());
+      setHasNextClicked(false);
     }
   };
 
   const handleSubmit = () => {
     console.log();
-    
+
     setIsSubmitted(true);
   };
 
@@ -118,7 +140,7 @@ const FormCard = ({ setIsSubmitted }) => {
   const currentQuestion = questions[currentStep] || {};
 
   return (
-    <div className="space-y-5 rounded-md overflow-hidden shadow-2xl mt-9">
+    <div className="space-y-3 rounded-md overflow-hidden shadow-2xl mt-9">
       <div
         className="questions-container flex flex-col items-center min-h-[40px] justify-center w-full md:w-[900px] mt-3"
         style={{ height: containerHeight }}
@@ -134,7 +156,11 @@ const FormCard = ({ setIsSubmitted }) => {
             onExit={() => setContainerHeight("auto")}
           >
             <div ref={contentRef}>
-              <h1 className="text-[1rem] text-center font-poppins font-normal px-4 leading-[-3px]">
+              <h1
+                className={`text-[1rem] text-center font-poppins font-normal px-4 leading-[-3px] ${
+                  errors.general && "text-red-600"
+                }`}
+              >
                 {currentQuestion.question}
               </h1>
               {currentQuestion.question && (
@@ -145,6 +171,7 @@ const FormCard = ({ setIsSubmitted }) => {
                   onSelect={handleSelect}
                   setIsNextButtonDisabled={setIsNextButtonDisabled}
                   isNextButtonDisabled={isNextButtonDisabled}
+                  hasNextClicked={hasNextClicked}
                   errors={errors}
                 />
               )}
