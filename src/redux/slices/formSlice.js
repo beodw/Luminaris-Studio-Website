@@ -14,53 +14,50 @@ const formSlice = createSlice({
     nextStep(state) {
       const currentStep = state.currentStep;
       const selectedAnswer = state.answers[currentStep];
+      const question = questions[currentStep];
 
-      const isTextQuestion = questions[currentStep]?.type === "text";
-      const isMultipleSelectQuestion =
-        questions[currentStep]?.type === "MultipleSelect";
+      const isTextQuestion = question?.type === "text";
+      const isMultipleSelectQuestion = question?.type === "MultipleSelect";
 
-      if (isTextQuestion || selectedAnswer) {
-        const selectedOption = isTextQuestion
-          ? null
-          : questions[currentStep]?.options?.find(
-              (option) => option.name === selectedAnswer
-            );
-
-        const nextStepId = isTextQuestion
-          ? questions[currentStep]?.next?.[1]
-          : questions[currentStep]?.next?.[selectedOption?.id];
+      if (isTextQuestion && typeof selectedAnswer === "string") {
+        if (selectedAnswer.trim() !== "") {
+          const nextStepId = question?.next?.[1] || state.currentStep + 1;
+          state.currentStep = nextStepId;
+        } else {
+          console.error("Text input is required to proceed");
+        }
+      } else if (isMultipleSelectQuestion && Array.isArray(selectedAnswer)) {
+        if (selectedAnswer.length > 0) {
+          const nextStepId = question?.next?.[1] || state.currentStep + 1;
+          state.currentStep = nextStepId;
+        } else {
+          console.error("At least one option should be selected");
+        }
+      } else if (selectedAnswer) {
+        const selectedOption = question.options?.find(
+          (option) => option.name === selectedAnswer
+        );
+        let nextStepId = question?.next?.[selectedOption?.id];
+        if (question.type === "text") {
+          nextStepId = question?.next?.[1];
+        }
 
         if (nextStepId === true) {
           state.formCompleted = true;
         } else if (nextStepId) {
+          console.log(state.currentStep, nextStep);
+          console.log(question?.next?.[1]);
+
           state.currentStep = nextStepId;
         } else {
+          console.log(question?.next?.[1]);
           console.error("No next step ID found");
         }
-      }
-
-      if (isMultipleSelectQuestion || selectedAnswer) {
-        const selectedOption = isTextQuestion
-          ? null
-          : questions[currentStep]?.options?.find(
-              (option) => option.name === selectedAnswer
-            );
-
-        const nextStepId = isMultipleSelectQuestion
-          ? questions[currentStep]?.next?.[1]
-          : questions[currentStep]?.next?.[selectedOption?.id];
-        console.log(nextStepId);
-        console.log(selectedOption);
-
-        if (nextStepId === true) {
-          state.formCompleted = true;
-        } else if (nextStepId) {
-          state.currentStep = nextStepId;
-        } else {
-          console.error("No next step ID found");
-        }
+      } else {
+        console.error("Answer is required to proceed");
       }
     },
+
     previousStep(state) {
       const currentStep = state.currentStep;
       const previousStepId = questions[currentStep]?.previous;
@@ -75,16 +72,16 @@ const formSlice = createSlice({
     },
     setAnswer(state, action) {
       const { step, answer } = action.payload;
-      console.log(`Setting answer for step ${step}:`, answer);
 
-      if (typeof answer === "object") {
-        state.answers[step] = { ...state.answers[step], ...answer };
+      // Ensure MultipleSelect answers are stored as arrays
+      if (Array.isArray(answer)) {
+        state.answers[step] = [...answer];
       } else {
         state.answers[step] = answer;
       }
+
       state.formCompleted = false;
     },
-
     resetForm(state) {
       return initialState;
     },

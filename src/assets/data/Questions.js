@@ -7,7 +7,7 @@ import Others from "../images/OtherFlag.png";
 
 const questions = {
   1: {
-    question: "What best describes your business?",
+    question: "What best describes your business?*",
     type: "SingleSelect",
     required: true,
     options: [
@@ -43,7 +43,7 @@ const questions = {
     previous: 1,
   },
   3: {
-    question: "What online platform do you want for your business?",
+    question: "What online platform do you want for your business?*",
     type: "MultipleSelect",
     options: [
       { name: "Website", type: "Mcq", id: 1 },
@@ -55,7 +55,7 @@ const questions = {
     previous: 4,
   },
   4: {
-    question: "Do you want to start your business now or later?",
+    question: "Do you want to start your business now or later?*",
     type: "Mcq",
     options: [
       { name: "Now", type: "Mcq", id: 1 },
@@ -68,7 +68,7 @@ const questions = {
     previous: 1,
   },
   5: {
-    question: "What type of business do you have?",
+    question: "What type of business do you have?*",
     type: "Mcq",
     options: [
       { name: "Service", type: "Mcq", id: 1 },
@@ -98,7 +98,7 @@ const questions = {
     previous: 5,
   },
   7: {
-    question: "Annual Revenue?",
+    question: "Annual Revenue?*",
     type: "Mcq",
     options: [
       { name: "$0 - $1M", type: "Mcq", id: 1 },
@@ -120,7 +120,7 @@ const questions = {
   },
   8: {
     question:
-      "How much profit (EBITDA) did your business earn over the past 12 months?",
+      "How much profit (EBITDA) did your business earn over the past 12 months?*",
     type: "Mcq",
     options: [
       { name: "$0 - $1M", type: "Mcq", id: 1 },
@@ -139,7 +139,7 @@ const questions = {
     previous: 7,
   },
   9: {
-    question: "(2/2) Annual Revenue?",
+    question: "(2/2) Annual Revenue?*",
     type: "Mcq",
     options: [
       { name: "$0 - $250K", type: "Mcq", id: 1 },
@@ -231,11 +231,11 @@ const questions = {
     previous: 12,
   },
   14: {
-    question: "First & Last Name?",
+    question: "First & Last Name?*",
     type: "text",
     options: [
-      { name: "First Name", type: "text", id: 1 },
-      { name: "Last Name", type: "text", id: 2 },
+      { name: "First Name", required: true, type: "text", id: 1 },
+      { name: "Last Name", required: true, type: "text", id: 2 },
     ],
     next: {
       1: 15,
@@ -244,7 +244,7 @@ const questions = {
     previous: 13,
   },
   15: {
-    question: "Company Website URL?",
+    question: "Company Website URL?*",
     type: "text",
     options: [{ name: "Url", required: true, type: "text", id: 1 }],
     next: {
@@ -253,7 +253,7 @@ const questions = {
     previous: 14,
   },
   16: {
-    question: "What's Your Phone Number?",
+    question: "What's Your Phone Number?*",
     type: "text",
     options: [
       { name: "phone e.g: 0321987654", required: true, type: "tel", id: 1 },
@@ -264,7 +264,7 @@ const questions = {
     previous: 15,
   },
   17: {
-    question: "What's Your Best Email?",
+    question: "What's Your Best Email?*",
     type: "text",
     options: [
       { name: "JohnDoe@gmail.com", required: true, type: "email", id: 1 },
@@ -275,7 +275,7 @@ const questions = {
     previous: 16,
   },
   19: {
-    question: "(2/2) Annual Revenue?",
+    question: "(2/2) Annual Revenue?*",
     type: "Mcq",
     options: [
       { name: "$0 - $250K", type: "Mcq", id: 1 },
@@ -292,7 +292,7 @@ const questions = {
     previous: 3,
   },
   20: {
-    question: "What's Your Best Email?",
+    question: "What's Your Best Email?*",
     type: "text",
     options: [
       { name: "JohnDoe@gmail.com", required: true, type: "email", id: 1 },

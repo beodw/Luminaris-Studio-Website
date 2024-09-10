@@ -12,8 +12,8 @@ const FormCard = ({ setIsSubmitted }) => {
   const formCompleted = useSelector((state) => state.form.formCompleted);
 
   const [errors, setErrors] = useState({});
-  const [formValidated, setFormValidated] = useState(false);
   const [containerHeight, setContainerHeight] = useState("auto");
+  const [isNextButtonDisabled, setIsNextButtonDisabled] = useState(true);
 
   const containerRef = useRef(null);
   const contentRef = useRef(null);
@@ -24,6 +24,7 @@ const FormCard = ({ setIsSubmitted }) => {
       phone
     );
 
+  // Only validate after answers have been set/updated
   const validateForm = () => {
     const currentQuestion = questions[currentStep];
     let isValid = true;
@@ -39,6 +40,7 @@ const FormCard = ({ setIsSubmitted }) => {
       }
     } else if (currentQuestion.type === "SingleSelect") {
       const value = answers[currentStep] || "";
+
       if (currentQuestion.required && !value) {
         isValid = false;
         tempErrors.general = "Please select an option.";
@@ -46,7 +48,7 @@ const FormCard = ({ setIsSubmitted }) => {
     } else {
       currentQuestion.options.forEach((option) => {
         const value = answers[currentStep]?.[option.id] || "";
-        console.log(`Validating ${option.id}: ${value}`);
+        console.log(value);
 
         if (option.required && !value) {
           tempErrors[option.id] = "This field is required.";
@@ -64,36 +66,48 @@ const FormCard = ({ setIsSubmitted }) => {
       });
     }
 
-    console.log("Validation errors:", tempErrors);
     setErrors(tempErrors);
+    setIsNextButtonDisabled(!isValid); // Update button disabled state
     return isValid;
   };
 
   useEffect(() => {
-    // Update container height based on content height
+    // Re-validate form whenever the answer changes
+    validateForm();
+  }, [answers, currentStep]);
+
+  useEffect(() => {
     if (contentRef.current && currentStep !== 1) {
       setContainerHeight(`${contentRef.current.scrollHeight + 30}px`);
     }
   }, [currentStep]);
 
   const handleSelect = (selectedItems) => {
-    dispatch(setAnswer({ step: currentStep, answer: selectedItems }));
-    const isValid = validateForm();
-    setFormValidated(isValid);
+    if (currentQuestion.type === "text") {
+      const currentAnswer = answers[currentStep] || {};
+      dispatch(
+        setAnswer({
+          step: currentStep,
+          answer: { ...currentAnswer, ...selectedItems }, // Merge new input with existing values
+        })
+      );
+    } else {
+      // Set the answer before validating the form
+      dispatch(setAnswer({ step: currentStep, answer: selectedItems }));
+    }
+    // Validate after setting the answer
+    validateForm();
   };
 
   const handleNext = () => {
-    const isValid = validateForm();
-    console.log(isValid);
-
-    if (isValid) {
+    if (!isNextButtonDisabled) {
       dispatch(nextStep());
-    } else {
-      console.log("Form validation failed. Cannot proceed to the next step.");
     }
   };
 
   const handleSubmit = () => {
+    console.log();
+    
     setIsSubmitted(true);
   };
 
@@ -129,6 +143,8 @@ const FormCard = ({ setIsSubmitted }) => {
                   options={currentQuestion.options}
                   selectedAnswer={answers[currentStep]}
                   onSelect={handleSelect}
+                  setIsNextButtonDisabled={setIsNextButtonDisabled}
+                  isNextButtonDisabled={isNextButtonDisabled}
                   errors={errors}
                 />
               )}
@@ -149,10 +165,12 @@ const FormCard = ({ setIsSubmitted }) => {
 
         <button
           className={`text-white hover:text-[#cdcdcd] px-4 py-3 rounded-br-lg rounded-bl-lg min-w-[200px] flex items-center justify-center gap-3 ${
-            !formValidated ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+            isNextButtonDisabled
+              ? "opacity-50 cursor-not-allowed"
+              : "cursor-pointer"
           }`}
           onClick={formCompleted ? handleSubmit : handleNext}
-          disabled={!formValidated}
+          disabled={isNextButtonDisabled}
         >
           {formCompleted ? "Submit" : "Next"}
         </button>
