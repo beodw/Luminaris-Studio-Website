@@ -25,7 +25,6 @@ const FormCard = ({ setIsSubmitted }) => {
       phone
     );
 
-  // Only validate after answers have been set/updated
   const validateForm = () => {
     const currentQuestion = questions[currentStep];
     let isValid = true;
@@ -54,7 +53,11 @@ const FormCard = ({ setIsSubmitted }) => {
         let value = answers[currentStep] || "";
         console.log(answers[currentStep]);
 
-        if (option.type === "tel" || option.type === "email") {
+        if (
+          option.type === "tel" ||
+          option.type === "email" ||
+          option.type === "textarea"
+        ) {
           value = answers[currentStep]?.[option.id] || "";
         }
 
@@ -78,15 +81,23 @@ const FormCard = ({ setIsSubmitted }) => {
         ) {
           tempErrors.general = "Please select an option.";
           isValid = false;
+        } else if (
+          (option.type === "file" && hasNextClicked && value.length === 0) ||
+          value.length === ""
+        ) {
+          tempErrors.general = "Please select an option.";
+          console.log(tempErrors.general);
+
+          isValid = false;
         }
       });
     }
 
     setErrors(tempErrors);
+    console.log("isValid", isValid);
     setIsNextButtonDisabled(!isValid); // Update button disabled state
     return isValid;
   };
-
   useEffect(() => {
     // Re-validate form whenever the answer changes
     validateForm();
@@ -118,6 +129,7 @@ const FormCard = ({ setIsSubmitted }) => {
 
   const handleNext = () => {
     setHasNextClicked(true);
+    validateForm();
     console.log("!isNextButtonDisabled", !isNextButtonDisabled);
     console.log("hasNextClicked", hasNextClicked);
 
@@ -135,6 +147,7 @@ const FormCard = ({ setIsSubmitted }) => {
 
   const handleBack = () => {
     dispatch(previousStep());
+    setHasNextClicked(true); // Reset hasNextClicked when going back
   };
 
   const currentQuestion = questions[currentStep] || {};
@@ -158,7 +171,7 @@ const FormCard = ({ setIsSubmitted }) => {
             <div ref={contentRef}>
               <h1
                 className={`text-[1rem] text-center font-poppins font-normal px-4 leading-[-3px] ${
-                  errors.general && "text-red-600"
+                  errors.general && hasNextClicked && "text-red-600"
                 }`}
               >
                 {currentQuestion.question}
@@ -197,7 +210,7 @@ const FormCard = ({ setIsSubmitted }) => {
               : "cursor-pointer"
           }`}
           onClick={formCompleted ? handleSubmit : handleNext}
-          disabled={isNextButtonDisabled}
+          // disabled={isNextButtonDisabled}
         >
           {formCompleted ? "Submit" : "Next"}
         </button>

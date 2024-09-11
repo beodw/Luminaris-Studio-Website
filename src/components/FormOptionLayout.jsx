@@ -48,7 +48,7 @@ const FormOptionLayout = ({
           </button>
         ))}
       </div>
-      {errors.general && ShowError && (
+      {errors.general && ShowError && hasNextClicked && (
         <p className="text-red-500 w-full text-sm pl-24 pt-1 -mb-1">
           {errors.general}
         </p>

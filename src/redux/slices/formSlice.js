@@ -38,7 +38,7 @@ const formSlice = createSlice({
           (option) => option.name === selectedAnswer
         );
         let nextStepId = question?.next?.[selectedOption?.id];
-        if (question.type === "text") {
+        if (question.type === "text" || question.type === "file" ) {
           nextStepId = question?.next?.[1];
         }
 
@@ -73,13 +73,13 @@ const formSlice = createSlice({
     setAnswer(state, action) {
       const { step, answer } = action.payload;
 
-      // Ensure MultipleSelect answers are stored as arrays
+      // Store file upload as an array of URLs
       if (Array.isArray(answer)) {
-        state.answers[step] = [...answer];
+        state.answers[step] = answer;
       } else {
         state.answers[step] = answer;
       }
-
+      
       state.formCompleted = false;
     },
     resetForm(state) {

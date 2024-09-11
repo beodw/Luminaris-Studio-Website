@@ -3,6 +3,7 @@ import React from "react";
 import FormOptionLayout from "./FormOptionLayout";
 import FormTextLayout from "./FormTextLayout";
 import FormMultipleSelectLayout from "./FormMultipleSelectLayout";
+import FormFileUploadLayout from "./FormFileUploadLayout";
 
 const FormOptions = ({
   type,
@@ -50,6 +51,16 @@ const FormOptions = ({
           hasNextClicked={hasNextClicked}
         />
       );
+    case "file":
+      return (
+        <FormFileUploadLayout
+          options={options}
+          selectedAnswer={selectedAnswer}
+          onSelect={onSelect}
+          errors={errors}
+          hasNextClicked={hasNextClicked}
+        />
+      );
     default:
       return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 pb-2 mb-1 justify-evenly items-center font-poppins text-gray-800 w-full">
@@ -88,7 +99,7 @@ const FormOptions = ({
               </div>
             </button>
           ))}
-          {errors.general && (
+          {errors.general && hasNextClicked && (
             <p className="text-red-500 w-full text-sm -mt-3 -mb-2">
               {errors.general}
             </p>

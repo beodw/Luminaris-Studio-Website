@@ -51,7 +51,7 @@ const questions = {
       { name: "Mobile App", type: "Mcq", id: 2 },
     ],
     next: {
-      1: 19,
+      1: 21,
     },
     previous: 4,
   },
@@ -290,7 +290,7 @@ const questions = {
       3: 20,
       4: 20,
     },
-    previous: 3,
+    previous: 21,
   },
   20: {
     question: "What's Your Best Email?*",
@@ -302,6 +302,17 @@ const questions = {
       1: true,
     },
     previous: 19,
+  },
+  21: {
+    question: "Upload your website logo*",
+    type: "file",
+    options: [
+      { name: "Upload Logo", required: true, type: "file", id: 1 },
+    ],
+    next: {
+      1: 19,
+    },
+    previous: 3,
   },
 };
 
