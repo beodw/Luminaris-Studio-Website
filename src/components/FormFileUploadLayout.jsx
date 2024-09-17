@@ -31,8 +31,7 @@ const FormFileUploadLayout = ({
     multiple: false, // Allow only one file
   });
   console.log(hasNextClicked);
-  console.log(errors.general);
-  
+  console.log("errors.general", errors.general);
 
   return (
     <div>
@@ -81,7 +80,7 @@ const FormFileUploadLayout = ({
         </ul>
       )}
       {errors.general && hasNextClicked && (
-        <p className="text-red-500 w-full text-sm mt-1 pl-4 -mb-0">
+        <p className="text-red-500 w-full text-sm mt-[6px] pl-[42px] -mb-0">
           {errors.general}
         </p>
       )}

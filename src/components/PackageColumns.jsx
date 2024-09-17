@@ -73,18 +73,23 @@ const PackageColumns = () => {
             key={index}
             className="border-2 border-black flex flex-col items-center pb-3 pt-2 font-poppins"
           >
-            <h3 className="mt-2 p-0 text-[15px] md:text-[20px] font-poppins">{plan.name}</h3>
+            <h3 className="mt-2 p-0 text-[15px] md:text-[20px] font-poppins">
+              {plan.name}
+            </h3>
             <p className="-mt-3 p-0 text-[12px] text-gray-600 font-poppins">
               Usage Based
             </p>
-            <h1 className="p-0 -mt-2 text-[25px] md:text-[32px] font-poppins">{plan.price}</h1>
-            <button
+            <h1 className="p-0 -mt-2 text-[25px] md:text-[32px] font-poppins">
+              {plan.price}
+            </h1>
+            <a
+              href="https://luminarisstudio.monime.space/p/1bfaXwUZ"
               className={`${
                 plan.color ? plan.color : "bg-black"
-              } text-white text-[15px] px-5 md:px-10 -mt-2 py-2 font-poppins`}
+              } text-white text-[15px] px-5 md:px-10 -mt-2 py-2 font-poppins hover:no-underline btn-effect`}
             >
               Free Trial
-            </button>
+            </a>
           </div>
         ))}
       </div>

@@ -7,6 +7,7 @@ const Form = ({ handleClose }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const navigate = useNavigate();
 
+
   // If the form is submitted, render the ThankYou component
   if (isSubmitted) {
     navigate("/packages");

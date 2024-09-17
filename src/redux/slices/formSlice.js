@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import questions from "../../assets/data/Questions";
 
+// Utility function to unwrap Proxies
+const toPlainObject = (obj) => JSON.parse(JSON.stringify(obj));
+
 const initialState = {
   currentStep: 1,
   answers: {},
@@ -38,19 +41,32 @@ const formSlice = createSlice({
           (option) => option.name === selectedAnswer
         );
         let nextStepId = question?.next?.[selectedOption?.id];
-        if (question.type === "text" || question.type === "file" ) {
+        if (question.type === "text" || question.type === "file") {
           nextStepId = question?.next?.[1];
         }
 
         if (nextStepId === true) {
           state.formCompleted = true;
-        } else if (nextStepId) {
-          console.log(state.currentStep, nextStep);
-          console.log(question?.next?.[1]);
 
+          // Log all answers with Proxy objects converted to plain objects
+          const plainAnswers = toPlainObject(state.answers);
+
+          for (const [key, value] of Object.entries(plainAnswers)) {
+            if (typeof value === "object") {
+              if (Array.isArray(value)) {
+                console.log(`Answer for question ${key} (Array):`, value);
+              } else {
+                console.log(`Answer for question ${key} (Object):`, value);
+              }
+            } else {
+              console.log(`Answer for question ${key}:`, value);
+            }
+          }
+
+          console.log("Form completed! Here are the answers:", plainAnswers);
+        } else if (nextStepId) {
           state.currentStep = nextStepId;
         } else {
-          console.log(question?.next?.[1]);
           console.error("No next step ID found");
         }
       } else {
@@ -72,14 +88,7 @@ const formSlice = createSlice({
     },
     setAnswer(state, action) {
       const { step, answer } = action.payload;
-
-      // Store file upload as an array of URLs
-      if (Array.isArray(answer)) {
-        state.answers[step] = answer;
-      } else {
-        state.answers[step] = answer;
-      }
-      
+      state.answers[step] = answer;
       state.formCompleted = false;
     },
     resetForm(state) {

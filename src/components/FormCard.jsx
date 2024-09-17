@@ -25,6 +25,70 @@ const FormCard = ({ setIsSubmitted }) => {
       phone
     );
 
+  const ConfigureValueType = (option) => {
+    let value = answers[currentStep] || "";
+    if (
+      option.type === "tel" ||
+      option.type === "email" ||
+      option.type === "textarea"
+    ) {
+      return (value = answers[currentStep]?.[option.id] || "");
+    }
+    if (option.type === "file") {
+      return (value = answers[currentStep] || []);
+    }
+    return value;
+  };
+
+  const HandleQuestionError = (option, value, tempErrors, isValid) => {
+    switch (option.type) {
+      case "email":
+        if (!validateEmail(value)) {
+          tempErrors.general = "Invalid email address.";
+          isValid = false;
+        }
+        break;
+
+      case "tel":
+        if (!validatePhoneNumber(value)) {
+          tempErrors.general = "Invalid phone number.";
+          isValid = false;
+        }
+        break;
+
+      case "Mcq":
+        if (hasNextClicked && value === "") {
+          tempErrors.general = "Please select an option.";
+          isValid = false;
+        }
+        break;
+
+      case "textarea":
+        if (hasNextClicked && value === "") {
+          tempErrors.general = "This field is required.";
+          isValid = false;
+        }
+        break;
+
+      case "file":
+        if (hasNextClicked && (value.length === 0 || value === "")) {
+          tempErrors.general = "Please upload a file.";
+          isValid = false;
+        }
+        break;
+
+      default:
+        // Required check for any type
+        if (option.required && !value && hasNextClicked) {
+          tempErrors.general = "This field is required.";
+          isValid = false;
+        }
+        break;
+    }
+
+    return isValid;
+  };
+
   const validateForm = () => {
     const currentQuestion = questions[currentStep];
     let isValid = true;
@@ -40,9 +104,6 @@ const FormCard = ({ setIsSubmitted }) => {
       }
     } else if (currentQuestion.type === "SingleSelect") {
       const value = answers[currentStep] || "";
-      console.log(
-        currentQuestion.required && value === "" && hasNextClicked === true
-      );
 
       if (currentQuestion.required && value === "" && hasNextClicked === true) {
         isValid = false;
@@ -50,46 +111,8 @@ const FormCard = ({ setIsSubmitted }) => {
       }
     } else {
       currentQuestion.options.forEach((option) => {
-        let value = answers[currentStep] || "";
-        console.log(answers[currentStep]);
-
-        if (
-          option.type === "tel" ||
-          option.type === "email" ||
-          option.type === "textarea"
-        ) {
-          value = answers[currentStep]?.[option.id] || "";
-        }
-
-        console.log(value);
-        if (option.required && !value && hasNextClicked) {
-          tempErrors[option.id] = "This field is required.";
-          isValid = false;
-        } else if (option.type === "email" && !validateEmail(value)) {
-          tempErrors[option.id] = "Invalid email address.";
-          isValid = false;
-        } else if (option.type === "tel" && !validatePhoneNumber(value)) {
-          tempErrors.general = "Invalid phone number.";
-          isValid = false;
-        } else if (option.type === "Mcq" && hasNextClicked && value === "") {
-          tempErrors.general = "Please select an option.";
-          isValid = false;
-        } else if (
-          option.type === "textarea" &&
-          hasNextClicked &&
-          value === ""
-        ) {
-          tempErrors.general = "Please select an option.";
-          isValid = false;
-        } else if (
-          (option.type === "file" && hasNextClicked && value.length === 0) ||
-          value.length === ""
-        ) {
-          tempErrors.general = "Please select an option.";
-          console.log(tempErrors.general);
-
-          isValid = false;
-        }
+        let value = ConfigureValueType(option);
+        HandleQuestionError(option, value, tempErrors, isValid);
       });
     }
 
@@ -130,19 +153,62 @@ const FormCard = ({ setIsSubmitted }) => {
   const handleNext = () => {
     setHasNextClicked(true);
     validateForm();
-    console.log("!isNextButtonDisabled", !isNextButtonDisabled);
-    console.log("hasNextClicked", hasNextClicked);
-
     if (!isNextButtonDisabled && hasNextClicked) {
       dispatch(nextStep());
       setHasNextClicked(false);
     }
   };
 
-  const handleSubmit = () => {
-    console.log();
+  const getEmail = (questions, answers) => {
+    // Iterate through the questions to find the email question
+    for (const [key, question] of Object.entries(questions)) {
+      // Check if the question is of type 'text' and has an 'email' option
+      if (
+        question.type === "text" &&
+        question.options.some((option) => option.type === "email")
+      ) {
+        // Ensure the key exists in answers and retrieve the value
+        const answerValue = answers[key];
 
+        // Check if answerValue is an object and has a single key-value pair
+        if (typeof answerValue === "object" && answerValue !== null) {
+          const value = Object.values(answerValue)[0];
+          return value || null;
+        }
+
+        // If answerValue is not an object, return it directly
+        return answerValue || null;
+      }
+    }
+    // Return null if no email question is found
+    return null;
+  };
+
+  console.log("answers", JSON.stringify({ answers }));
+
+  const handleSubmit = async () => {
+    // try {
+    // Send only the email to the API
+    // const response = await fetch(
+    //   "https://3ye1yixzfj.execute-api.eu-west-1.amazonaws.com/dev/payment",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ answers }),
+    //   }
+    // );
     setIsSubmitted(true);
+
+    //   if (response.ok) {
+    //     setIsSubmitted(true);
+    //   } else {
+    //     throw new Error("Submission failed");
+    //   }
+    // } catch (error) {
+    //   console.error("Error submitting form:", error);
+    // }
   };
 
   const handleBack = () => {

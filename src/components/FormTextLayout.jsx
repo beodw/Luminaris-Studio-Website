@@ -30,6 +30,8 @@ const FormTextLayout = ({
     );
   };
 
+  console.log(errors);
+
   const RenderGeneralError = () => {
     return (
       errors.general && (
