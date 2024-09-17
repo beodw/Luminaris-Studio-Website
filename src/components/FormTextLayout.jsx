@@ -30,8 +30,6 @@ const FormTextLayout = ({
     );
   };
 
-  console.log(errors);
-
   const RenderGeneralError = () => {
     return (
       errors.general && (
@@ -45,8 +43,6 @@ const FormTextLayout = ({
   return (
     <div className="flex flex-wrap gap-4 px-4 py-3 justify-evenly items-center font-poppins w-full text-gray-800">
       {options.map((option) => {
-        console.log(errors[option.id]);
-        console.log(errors.general);
         return (
           <div
             key={option.id}

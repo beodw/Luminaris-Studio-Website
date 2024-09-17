@@ -271,7 +271,7 @@ const questions = {
       { name: "JohnDoe@gmail.com", required: true, type: "email", id: 1 },
     ],
     next: {
-      1: true,
+      1: 22,
     },
     previous: 16,
   },
@@ -299,20 +299,44 @@ const questions = {
       { name: "JohnDoe@gmail.com", required: true, type: "email", id: 1 },
     ],
     next: {
-      1: true,
+      1: 23,
     },
     previous: 19,
   },
   21: {
     question: "Upload your website logo*",
     type: "file",
-    options: [
-      { name: "Upload Logo", required: true, type: "file", id: 1 },
-    ],
+    options: [{ name: "Upload Logo", required: true, type: "file", id: 1 }],
     next: {
       1: 19,
     },
     previous: 3,
+  },
+  22: {
+    question: "would you like us to store your information?*",
+    type: "Mcq",
+    options: [
+      { name: "Yes", type: "Mcq", id: 1 },
+      { name: "No", type: "Mcq", id: 2 },
+    ],
+    next: {
+      1: true,
+      2: true,
+    },
+    previous: 17,
+  },
+  23: {
+    question: "would you like us to store your information?*",
+    type: "Mcq",
+    options: [
+      { name: "Yes", type: "Mcq", id: 1 },
+      { name: "No", type: "Mcq", id: 2 },
+    ],
+    next: {
+      1: true,
+      2: true,
+    },
+    previous: 20,
   },
 };
 

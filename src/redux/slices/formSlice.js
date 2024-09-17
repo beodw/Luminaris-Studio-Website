@@ -63,7 +63,6 @@ const formSlice = createSlice({
             }
           }
 
-          console.log("Form completed! Here are the answers:", plainAnswers);
         } else if (nextStepId) {
           state.currentStep = nextStepId;
         } else {

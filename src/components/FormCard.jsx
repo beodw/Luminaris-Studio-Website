@@ -117,7 +117,6 @@ const FormCard = ({ setIsSubmitted }) => {
     }
 
     setErrors(tempErrors);
-    console.log("isValid", isValid);
     setIsNextButtonDisabled(!isValid); // Update button disabled state
     return isValid;
   };
@@ -184,31 +183,37 @@ const FormCard = ({ setIsSubmitted }) => {
     return null;
   };
 
-  console.log("answers", JSON.stringify({ answers }));
 
   const handleSubmit = async () => {
-    // try {
-    // Send only the email to the API
-    // const response = await fetch(
-    //   "https://3ye1yixzfj.execute-api.eu-west-1.amazonaws.com/dev/payment",
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ answers }),
-    //   }
-    // );
-    setIsSubmitted(true);
+    try {
+      // Check if the user answered "Yes" to question ID 22
+      const Route1shouldStoreData = answers["22"] === "Yes";
+      const Route2shouldStoreData = answers["23"] === "Yes";
 
-    //   if (response.ok) {
-    //     setIsSubmitted(true);
-    //   } else {
-    //     throw new Error("Submission failed");
-    //   }
-    // } catch (error) {
-    //   console.error("Error submitting form:", error);
-    // }
+      if (Route1shouldStoreData || Route2shouldStoreData) {
+        // Send the data to the API only if the user agreed to store their data
+        const response = await fetch(
+          "https://3ye1yixzfj.execute-api.eu-west-1.amazonaws.com/dev/form/store",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json", 
+            },
+            body: JSON.stringify({ answers }.answers),
+          }
+        );
+
+
+        if (!response.ok) {
+          throw new Error("Submission failed");
+        }
+      }
+
+      // Set submission as successful regardless of the API call
+      setIsSubmitted(true);
+    } catch (error) {
+      console.log("Error submitting form:", error);
+    }
   };
 
   const handleBack = () => {

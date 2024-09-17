@@ -30,8 +30,6 @@ const FormFileUploadLayout = ({
     onDrop: (acceptedFiles) => handleFileChange(acceptedFiles),
     multiple: false, // Allow only one file
   });
-  console.log(hasNextClicked);
-  console.log("errors.general", errors.general);
 
   return (
     <div>
