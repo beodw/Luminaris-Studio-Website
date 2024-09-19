@@ -149,46 +149,41 @@ const FormCard = ({ setIsSubmitted }) => {
     setHasNextClicked(true);
   };
 
+  // const handleNext = () => {
+  //   setHasNextClicked(true);
+  //   const isValid = validateForm(); // Ensure validation runs first
+  //   if (isValid) {
+  //     if (formCompleted) {
+  //       handleSubmit(); // Submit form if on the last step
+  //     } else {
+  //       dispatch(nextStep()); // Move to the next step if not the last step
+  //     }
+  //     setHasNextClicked(false);
+  //   }
+  // };
+
   const handleNext = () => {
     setHasNextClicked(true);
-    const isValid = validateForm(); // Ensure validation runs first
-    if (isValid) {
-      if (formCompleted) {
-        handleSubmit(); // Submit form if on the last step
-      } else {
-        dispatch(nextStep()); // Move to the next step if not the last step
-      }
+    validateForm();
+    if (!isNextButtonDisabled && hasNextClicked) {
+      dispatch(nextStep());
       setHasNextClicked(false);
     }
   };
 
-  const getEmail = (questions, answers) => {
-    // Iterate through the questions to find the email question
-    for (const [key, question] of Object.entries(questions)) {
-      // Check if the question is of type 'text' and has an 'email' option
-      if (
-        question.type === "text" &&
-        question.options.some((option) => option.type === "email")
-      ) {
-        // Ensure the key exists in answers and retrieve the value
-        const answerValue = answers[key];
-
-        // Check if answerValue is an object and has a single key-value pair
-        if (typeof answerValue === "object" && answerValue !== null) {
-          const value = Object.values(answerValue)[0];
-          return value || null;
-        }
-
-        // If answerValue is not an object, return it directly
-        return answerValue || null;
-      }
-    }
-    // Return null if no email question is found
-    return null;
-  };
-
   const handleSubmit = async () => {
     try {
+      // Ensure last question is answered
+      const lastQuestionAnswer = answers["22"] || answers["23"];
+
+      if (!lastQuestionAnswer) {
+        validateForm();
+        setErrors({
+          general: "Please answer the last question before submitting.",
+        });
+        return; // Prevent submission if not answered
+      }
+
       // Check if the user answered "Yes" to question ID 22
       const Route1shouldStoreData = answers["22"] === "Yes";
       const Route2shouldStoreData = answers["23"] === "Yes";
