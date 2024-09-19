@@ -79,7 +79,7 @@ const FormTextLayout = ({
               />
             )}
             {errors[option.id] && <RenderOptionError />}
-            {errors.general && <RenderGeneralError />}
+            {errors.general && hasNextClicked && <RenderGeneralError />}
           </div>
         );
       })}

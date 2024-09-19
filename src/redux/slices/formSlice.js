@@ -45,7 +45,7 @@ const formSlice = createSlice({
           nextStepId = question?.next?.[1];
         }
 
-        if (nextStepId === true) {
+        if (nextStepId  === true || currentStep === 22) {
           state.formCompleted = true;
 
           // Log all answers with Proxy objects converted to plain objects
@@ -62,7 +62,6 @@ const formSlice = createSlice({
               console.log(`Answer for question ${key}:`, value);
             }
           }
-
         } else if (nextStepId) {
           state.currentStep = nextStepId;
         } else {

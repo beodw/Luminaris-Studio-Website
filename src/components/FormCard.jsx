@@ -151,9 +151,13 @@ const FormCard = ({ setIsSubmitted }) => {
 
   const handleNext = () => {
     setHasNextClicked(true);
-    validateForm();
-    if (!isNextButtonDisabled && hasNextClicked) {
-      dispatch(nextStep());
+    const isValid = validateForm(); // Ensure validation runs first
+    if (isValid) {
+      if (formCompleted) {
+        handleSubmit(); // Submit form if on the last step
+      } else {
+        dispatch(nextStep()); // Move to the next step if not the last step
+      }
       setHasNextClicked(false);
     }
   };
@@ -183,7 +187,6 @@ const FormCard = ({ setIsSubmitted }) => {
     return null;
   };
 
-
   const handleSubmit = async () => {
     try {
       // Check if the user answered "Yes" to question ID 22
@@ -197,12 +200,11 @@ const FormCard = ({ setIsSubmitted }) => {
           {
             method: "POST",
             headers: {
-              "Content-Type": "application/json", 
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({ answers }.answers),
           }
         );
-
 
         if (!response.ok) {
           throw new Error("Submission failed");
@@ -280,10 +282,16 @@ const FormCard = ({ setIsSubmitted }) => {
               ? "opacity-50 cursor-not-allowed"
               : "cursor-pointer"
           }`}
-          onClick={formCompleted ? handleSubmit : handleNext}
+          onClick={
+            formCompleted || currentStep === 23 || currentStep === 22
+              ? handleSubmit
+              : handleNext
+          }
           // disabled={isNextButtonDisabled}
         >
-          {formCompleted ? "Submit" : "Next"}
+          {formCompleted || currentStep === 23 || currentStep === 22
+            ? "Submit"
+            : "Next"}
         </button>
       </div>
     </div>
