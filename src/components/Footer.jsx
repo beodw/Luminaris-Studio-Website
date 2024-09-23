@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="site-footer">
       <div className="container">
-        <div className="site-footer-inner has-top-divider">
+        <div className="site-footer-inner has-top-divider flex justify-between">
           <div className="brand footer-brand">
             <a href="/">
               {/* <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
@@ -67,11 +67,11 @@ const Footer = () => {
               <img src={logo} alt="LS" className="w-12 h-12 rounded-lg" />
             </a>
           </div>
-          <ul className="footer-links list-reset">
-            <li>
-              <a href="/">Contact</a>
-            </li>
-            <li>
+          {/* <ul className="footer-links list-reset"> */}
+            {/* <li>
+              <a href="mailto:beodwilson@gmail.com">Contact</a>
+            </li> */}
+            {/* <li>
               <a href="/">About us</a>
             </li>
             <li>
@@ -79,9 +79,9 @@ const Footer = () => {
             </li>
             <li>
               <a href="/">Support</a>
-            </li>
-          </ul>
-          <ul className="footer-social-links list-reset">
+            </li> */}
+          {/* </ul> */}
+          {/* <ul className="footer-social-links list-reset">
             <li>
               <a href="/">
                 <span className="screen-reader-text">Facebook</span>
@@ -115,9 +115,9 @@ const Footer = () => {
                 </svg>
               </a>
             </li>
-          </ul>
-          <div className="footer-copyright">
-            &copy; 2018 April, all rights reserved
+          </ul> */}
+          <div className="flex justify-end">
+            &copy; {new Date().getFullYear()} April, all rights reserved
           </div>
         </div>
       </div>

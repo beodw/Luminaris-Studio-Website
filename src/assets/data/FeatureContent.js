@@ -1,13 +1,11 @@
 // featureContent.js
 const featureContent = {
-    sectionTitle: "Meet April",
-    sectionParagraph:
-      "Lorem ipsum is common placeholder text used to demonstrate the graphic elements of a document or visual presentation.",
+    sectionTitle: "Our Offer",
+    sectionParagraph:"Save time, money, and effort while building your next big idea!",
     features: [
       {
-        title: "Powerful",
-        description:
-          "A pseudo-Latin text used in web design, layout, and printing in place of English to emphasize design elements.",
+        title: "Speed",
+        description:"Get your software up and running in just 2 weeks. Our rapid development process ensures you see results fast, so you can start generating revenue sooner.",
         iconBgColor: "#FFD2DA",
         icon: (
           <svg width="88" height="88" xmlns="http://www.w3.org/2000/svg">
@@ -25,9 +23,8 @@ const featureContent = {
         ),
       },
       {
-        title: "Flexible",
-        description:
-          "Another pseudo-Latin text used to emphasize design elements, instead of focusing on actual content.",
+        title: "Efficiency",
+        description:"Save time, money, and resources by streamlining development. Our approach reduces the need for extensive staff, manual work, and lengthy project timelines.",
         iconBgColor: "#FFD8CD",
         icon: (
           <svg width="88" height="88" xmlns="http://www.w3.org/2000/svg">
@@ -45,9 +42,8 @@ const featureContent = {
         ),
       },
       {
-        title: "Powerful",
-        description:
-          "A pseudo-Latin text used in web design, layout, and printing in place of English to emphasize design elements.",
+        title: "Leverage",
+        description:"Scale your business with less effort. Software that automates tasks and optimizes workflows means more time to focus on growth, not operations.",
         iconBgColor: "#FFD2DA",
         icon: (
           <svg width="88" height="88" xmlns="http://www.w3.org/2000/svg">
@@ -65,9 +61,8 @@ const featureContent = {
         ),
       },
       {
-        title: "Flexible",
-        description:
-          "Another pseudo-Latin text used to emphasize design elements, instead of focusing on actual content.",
+        title: "Agility",
+        description:"Innovate and pivot quickly with minimal effort. With our fast turnaround and real-time feedback loop, you'll stay ahead of market shifts without delays.",
         iconBgColor: "#FFD8CD",
         icon: (
           <svg width="88" height="88" xmlns="http://www.w3.org/2000/svg">

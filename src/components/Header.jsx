@@ -13,7 +13,7 @@ const Header = () => {
           <Link to={"/"} className="no-underline hover:no-underline">
             <span id="hs_cos_wrapper_home_logo_" className="hs_cos_wrapper flex items-center gap-3 font-poppins text-white font-bold">
               <img src={logo} className="w-7 rounded-md h-auto" />
-              Luminaris Studio
+              Software Starter.com
             </span>
           </Link>
         </div>
