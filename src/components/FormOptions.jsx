@@ -63,7 +63,7 @@ const FormOptions = ({
       );
     default:
       return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 pb-2 mb-1 justify-evenly items-center font-poppins text-gray-800 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 px-4 justify-evenly items-center font-poppins w-full text-gray-800">
           {options.map((option) => (
             <button
               key={option.id}

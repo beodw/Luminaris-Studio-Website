@@ -54,11 +54,17 @@ const FormMultipleSelectLayout = ({
             onClick={() => handleSelect(option.name)}
           >
             <div className="">
-              <div className="flex ml-2 w-5 h-5 rounded-md border-2 relative">
-                {selectedItems.includes(option.name) && (
-                  <div className="w-3 h-3 bg-blue-500 rounded-sm m-auto"></div>
-                )}
-              </div>
+              <div
+                  className={`flex ml-2 w-5 h-5 rounded-full border-2 relative ${
+                    selectedItems.includes(option.name)
+                      ? "bg-blue-500 border-blue-500"
+                      : ""
+                  }`}
+                >
+                  {selectedItems.includes(option.name) && (
+                    <div className="w-3 h-3 bg-white rounded-full m-auto"></div>
+                  )}
+                </div>
             </div>
             <div className="flex flex-col items-center px-4 xl:px-[9px] w-full">
               <span className="font-normal">{option.name}</span>

@@ -15,6 +15,8 @@ const FormOptionLayout = ({
     }
   }, [errors, hasNextClicked]);
 
+  
+
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2  gap-4 px-4 justify-evenly items-center font-poppins  w-full text-gray-800">
