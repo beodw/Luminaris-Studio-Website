@@ -71,7 +71,7 @@ const FormOptions = ({
                 selectedAnswer === option.name
                   ? "border-blue-500 bg-[#e4e4e4d4]"
                   : "border-gray-300"
-              } shadow-effect w-full text-center`}
+              } w-full text-center`}
               onClick={() => handleClick(option)}
             >
               <div className="w-full">

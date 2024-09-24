@@ -25,7 +25,7 @@ const NewsLetterSection = () => {
               </div>
               <div className="control">
                 <a
-                  className="button button-primary button-block button-shadow"
+                  className="button button-primary button-block"
                   href="/"
                 >
                   Early access

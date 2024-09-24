@@ -4,10 +4,10 @@ import logo from "../assets/images/logo.png";
 
 const Footer = () => {
   return (
-    <footer className="site-footer">
+    <footer className="site-footer bg-blue-800">
       <div className="container">
         <div className="site-footer-inner has-top-divider flex justify-between">
-          <div className="brand footer-brand">
+          <div className="w-full flex justify-center">
             <a href="/">
               {/* <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
                 <title>April</title>
@@ -116,7 +116,7 @@ const Footer = () => {
               </a>
             </li>
           </ul> */}
-          <div className="flex justify-end">
+          <div className="flex justify-center w-full text-white text-[10px]">
             &copy; {new Date().getFullYear()} April, all rights reserved
           </div>
         </div>

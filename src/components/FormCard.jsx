@@ -220,10 +220,27 @@ const FormCard = ({ setIsSubmitted }) => {
 
   const currentQuestion = questions[currentStep] || {};
 
+  function getScreenSize() {
+    const width = window.innerWidth;
+
+    if (width <= 320) {
+        return "200px";
+    } else if (width >= 1024) {
+        return "300px";
+    } else if (width >= 768) {
+        return "400px";
+    } else if (width >= 425) {
+        return "300px";
+    } else if (width >= 375) {
+        return "250px";
+    }
+}
+
+
   return (
-    <div className="space-y-3 rounded-md overflow-hidden shadow-2xl mt-9">
+    <div className="space-y-3 rounded-md overflow-y-scroll mt-9">
       <div
-        className="questions-container flex flex-col items-center min-h-[40px] justify-center w-full md:w-[900px] mt-3"
+        className="questions-container flex flex-col items-center min-h-[40px] justify-center w-full md:w-[900px] mt-3 min-h-[250px] max-h-[250px] min-w-[320px] max-w-[320px] md:min-h-[400px] md:max-h-[400px] md:min-w-[725px] md:max-w-[725px] lg:min-w-[900px] lg:max-w-[900px] overflow-scroll"
         style={{ height: containerHeight }}
         ref={containerRef}
       >
@@ -236,7 +253,7 @@ const FormCard = ({ setIsSubmitted }) => {
             onEnter={() => setContainerHeight("auto")}
             onExit={() => setContainerHeight("auto")}
           >
-            <div ref={contentRef}>
+            <div ref={contentRef} style={{overflowY:"scroll", height: getScreenSize()}}>
               <h1
                 className={`text-[1rem] text-center font-poppins font-normal px-4 leading-[-3px] ${
                   errors.general && hasNextClicked && "text-red-600"
@@ -262,7 +279,7 @@ const FormCard = ({ setIsSubmitted }) => {
       </div>
       <div className="flex flex-row justify-between w-full bg-blue-700 mb-5 gap-2 sm:gap-5">
         <button
-          className={`px-4 py-3 rounded min-w-[200px] text-[#d4d4d4] ${
+          className={`px-4 py-3 rounded text-[#d4d4d4] ${
             currentStep === 1 ? "opacity-0 cursor-default" : "cursor-pointer"
           }`}
           onClick={handleBack}
@@ -272,7 +289,7 @@ const FormCard = ({ setIsSubmitted }) => {
         </button>
 
         <button
-          className={`text-white hover:text-[#cdcdcd] px-4 py-3 rounded-br-lg rounded-bl-lg min-w-[200px] flex items-center justify-center gap-3 ${
+          className={`text-white hover:text-[#cdcdcd] px-4 py-3 rounded-br-lg rounded-bl-lg flex items-center justify-center gap-3 ${
             isNextButtonDisabled
               ? "opacity-50 cursor-not-allowed"
               : "cursor-pointer"

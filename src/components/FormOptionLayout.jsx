@@ -19,7 +19,7 @@ const FormOptionLayout = ({
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2  gap-4 px-4 justify-evenly items-center font-poppins  w-full text-gray-800">
+      <div className="flex gap-4 px-4 justify-center items-center font-poppins w-full text-gray-800">
         {options.map((option) => (
           <button
             key={option.id}
@@ -27,7 +27,7 @@ const FormOptionLayout = ({
               selectedAnswer === option.name
                 ? "border-blue-500 bg-[#e4e4e4d4]"
                 : "border-gray-300"
-            }  shadow-effect w-full text-center`}
+            } w-full text-center max-w-[500px]`}
             onClick={() => onSelect(option.name)}
           >
             {/* RADIO BTN */}

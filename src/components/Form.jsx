@@ -16,13 +16,19 @@ const Form = ({ handleClose }) => {
   return (
     <div className="flex flex-col  min-h-[550px] items-center my-2 -mt-2 sm:p-5 md:p-3 xl:p-1 rounded overflow-x-hidden z-50">
       <div className="flex flex-col items-center mb-[12px]">
-        <h2 className=" text-[12px] md:text-[26px] border-t border-black pt-[30px] max-w-[676px] mx-auto  mt-[30px] font-poppins font-extrabold">
+        <h2 className=" text-[14px] md:text-[34px] pt-[30px] max-w-[1000px] mx-auto  mt-[30px] font-poppins font-extrabold">
           <span>DO YOU WANT TO</span>{" "}
-          <span className="text-purple-700">BUILD SOME SOFTWARE</span>
+          <span className="text-blue-700">BUILD SOME SOFTWARE</span>
           <span>?</span>
         </h2>
-        <p className=" text-[9px] md:text-[14px] -mt-4 mx-auto font-poppins ">
-          Human made software in weeks not months, for a fraction of the cost.
+        <p className="text-[11px] md:text-[17px] -mt-4 font-poppins md:hidden">
+          Human made software in weeks not months.
+        </p>
+        <p className="text-[11px] md:text-[17px] -mt-4 font-poppins md:hidden">
+          Click below to get started.
+        </p>
+        <p className="text-[11px] md:text-[17px] -mt-4 font-poppins hidden md:flex">
+          Human made software in weeks not months click below to get started.
         </p>
       </div>
       <FormCard setIsSubmitted={setIsSubmitted} />

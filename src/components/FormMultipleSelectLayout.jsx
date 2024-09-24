@@ -46,7 +46,7 @@ const FormMultipleSelectLayout = ({
         {options.map((option) => (
           <button
             key={option.id}
-            className={`border flex gap-3 py-3 items-center bg-white text-black rounded-md shadow-effect w-full text-center ${
+            className={`border flex gap-3 py-3 items-center bg-white text-black rounded-md w-full text-center ${
               selectedItems.includes(option.name)
                 ? "border-blue-500"
                 : "border-gray-300"

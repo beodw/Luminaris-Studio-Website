@@ -53,7 +53,7 @@ const FormFileUploadLayout = ({
         <ul className="mx-[42px] pl-0 space-y-1 mt-2">
           <li
             key={file.name}
-            className="flex items-center justify-between border-2 font-poppins w-full border-[#3333338a] shadow-sm rounded-md px-3 py-2"
+            className="flex items-center justify-between border-2 font-poppins w-full border-[#3333338a] rounded-md px-3 py-2"
           >
             <span className="text-[16px]">{file.name}</span>
             <button

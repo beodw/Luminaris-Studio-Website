@@ -10,8 +10,8 @@ const Home = () => {
     <div className="mx-auto">
       <main className="overflow-hidden">
         <Form />
-        <FeatureSection />
-        <TestimonalSection />
+        {/* <FeatureSection /> */}
+        {/* <TestimonalSection /> */}
         {/* <NewsLetterSection /> */}
       </main>
     </div>
