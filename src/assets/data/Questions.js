@@ -4,6 +4,9 @@ import Scale from "../images/scale.png";
 import USA from "../images/USAFlag.png";
 import Canada from "../images/canadaFlag.png";
 import Others from "../images/OtherFlag.png";
+import Store from "../images/store.png";
+import CommercialBuilding from "../images/commercial-building.png";
+import Startup from "../images/startup.png";
 
 const questions = {
   1: {
@@ -33,13 +36,13 @@ const questions = {
     previous: 1,
   },
   3: {
-    question: "What Best Describes Your Company Size?",
+    question: "What best describes your company size?",
     type: "SingleSelect",
     required: true,
     options: [
-      { name: "500+ employees", type: "Mcq", img: USA, id: 1 },
-      { name: "20 - 500 employees", type: "Mcq", img: Canada, id: 2 },
-      { name: "1 - 10 employees", type: "Mcq", img: Others, id: 3 },
+      { name: "500+ employees", type: "Mcq", img: CommercialBuilding, id: 1 },
+      { name: "20 - 500 employees", type: "Mcq", img: Store, id: 2 },
+      { name: "1 - 10 employees", type: "Mcq", img: Startup, id: 3 },
     ],
     next: {
       1: 4,
@@ -62,8 +65,8 @@ const questions = {
     type: "SingleSelect",
     required: true,
     options: [
-      { name: "Yes", type: "Mcq", img: USA, id: 1 },
-      { name: "No", type: "Mcq", img: Canada, id: 2 },
+      { name: "Yes", type: "Mcq", id: 1 },
+      { name: "No", type: "Mcq", id: 2 },
     ],
     next: {
       1: 6,
@@ -76,8 +79,8 @@ const questions = {
     type: "SingleSelect",
     required: true,
     options: [
-      { name: "Yes", type: "Mcq", img: USA, id: 1 },
-      { name: "No", type: "Mcq", img: Canada, id: 2 },
+      { name: "Yes", type: "Mcq", id: 1 },
+      { name: "No", type: "Mcq", id: 2 },
     ],
     next: {
       1: 23,
