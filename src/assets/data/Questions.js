@@ -17,10 +17,20 @@ const questions = {
       { name: "No", type: "Mcq", id: 2 },
     ],
     next: {
-      1: 2,
-      2: 2,
+      1: 24,
+      2: 24,
     },
-    previous: null,
+    previous: 0,
+  },
+  24:{
+    question: "What is your best email?",
+    type: "text",
+    required: true,
+    options: [ { name: "JohnDoe@gmail.com", required: true, type: "email", id: 1 } ],
+    next: {
+      1: 2,
+    },
+    previous: 1,
   },
   2: {
     question: "What platform will it run on?",
@@ -33,7 +43,7 @@ const questions = {
       1: 3,
       2: 3,
     },
-    previous: 1,
+    previous: 24,
   },
   3: {
     question: "What best describes your company size?",
@@ -119,7 +129,7 @@ const questions = {
       // { name: "No", type: "Mcq", id: 2 },
     ],
     next: {
-      1: true,
+      1: 24,
       // 2: true,
     },
     previous: 5,
@@ -132,7 +142,7 @@ const questions = {
       // { name: "No", type: "Mcq", id: 2 },
     ],
     next: {
-      1: true,
+      1: 25,
       // 2: true,
     },
     previous: 6,

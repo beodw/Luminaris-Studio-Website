@@ -10,7 +10,7 @@ const Form = ({ handleClose }) => {
 
   // If the form is submitted, render the ThankYou component
   if (isSubmitted) {
-    navigate("/packages");
+    navigate("/payment");
   }
 
   return (

@@ -6,7 +6,9 @@ import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import OfferCards from "./page/OfferCards";
+import Confirmation from "./page/Confirmation";
 import background from "./assets/images/background.jpg"
+import Payment from "./page/Payment";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/packages" element={<OfferCards />} />
+        <Route path="/confirmation" element={<Confirmation />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
       <Footer />
     </div>
