@@ -5,6 +5,7 @@ import { nextStep, previousStep, setAnswer } from "../redux/slices/formSlice";
 import FormOptions from "./FormOptions";
 import questions from "../assets/data/Questions";
 
+
 const FormCard = ({ setIsSubmitted }) => {
   const dispatch = useDispatch();
   const currentStep = useSelector((state) => state.form.currentStep);
@@ -15,6 +16,9 @@ const FormCard = ({ setIsSubmitted }) => {
   const [containerHeight, setContainerHeight] = useState("auto");
   const [isNextButtonDisabled, setIsNextButtonDisabled] = useState(true);
   const [hasNextClicked, setHasNextClicked] = useState(false);
+  const [loading, setLoading] = useState(false); // Track loading state
+
+
 
   const containerRef = useRef(null);
   const contentRef = useRef(null);
@@ -173,23 +177,12 @@ const FormCard = ({ setIsSubmitted }) => {
 
   const handleSubmit = async () => {
     try {
-      // Ensure last question is answered
+      setLoading(true); // Start loading animation
       const lastQuestionAnswer = answers["22"] || answers["23"];
 
-      if (!lastQuestionAnswer) {
-        validateForm();
-        setErrors({
-          general: "Please answer the last question before submitting.",
-        });
-        return; // Prevent submission if not answered
-      }
 
-      // Check if the user answered "Yes" to question ID 22
-      const Route1shouldStoreData = answers["22"] === "Yes";
-      const Route2shouldStoreData = answers["23"] === "Yes";
-
-      if (Route1shouldStoreData || Route2shouldStoreData) {
-        // Send the data to the API only if the user agreed to store their data
+      if (lastQuestionAnswer) {
+        setLoading(true); // Start loading animation
         const response = await fetch(
           "https://3ye1yixzfj.execute-api.eu-west-1.amazonaws.com/dev/form/store",
           {
@@ -206,12 +199,20 @@ const FormCard = ({ setIsSubmitted }) => {
         }
       }
 
-      // Set submission as successful regardless of the API call
-      setIsSubmitted(true);
+      setTimeout(() => {
+        setIsSubmitted(true);
+      }, 1000);
+
+
     } catch (error) {
       console.log("Error submitting form:", error);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }
   };
+
 
   const handleBack = () => {
     dispatch(previousStep());
@@ -224,17 +225,17 @@ const FormCard = ({ setIsSubmitted }) => {
     const width = window.innerWidth;
 
     if (width <= 320) {
-        return "200px";
+      return "200px";
     } else if (width >= 1024) {
-        return "300px";
+      return "300px";
     } else if (width >= 768) {
-        return "400px";
+      return "400px";
     } else if (width >= 425) {
-        return "300px";
+      return "300px";
     } else if (width >= 375) {
-        return "250px";
+      return "250px";
     }
-}
+  }
 
 
   return (
@@ -253,11 +254,17 @@ const FormCard = ({ setIsSubmitted }) => {
             onEnter={() => setContainerHeight("auto")}
             onExit={() => setContainerHeight("auto")}
           >
-            <div ref={contentRef} style={{overflowY:"scroll", height: getScreenSize()}}>
+            {loading ? (
+              <div className=" ">
+                <h1 className="text-center text-lg">Submitting... Please wait.</h1>
+                <iframe src="https://lottie.host/embed/98ed8270-cc1b-4005-a76d-b4867b8d4d4e/tCSOsfGbC6.json"
+                  className="w-full -my-4"
+                ></iframe>
+              </div>
+            ) : (<div ref={contentRef} style={{ overflowY: "scroll", height: getScreenSize() }}>
               <h1
-                className={`text-[1rem] text-center font-poppins font-normal px-4 leading-[-3px] ${
-                  errors.general && hasNextClicked && "text-red-600"
-                }`}
+                className={`text-[1rem] text-center font-poppins font-normal px-4 leading-[-3px] ${errors.general && hasNextClicked && "text-red-600"
+                  }`}
               >
                 {currentQuestion.question}
               </h1>
@@ -273,15 +280,14 @@ const FormCard = ({ setIsSubmitted }) => {
                   errors={errors}
                 />
               )}
-            </div>
+            </div>)}
           </CSSTransition>
         </TransitionGroup>
       </div>
       <div className="flex flex-row justify-between w-full bg-blue-700 mb-5 gap-2 sm:gap-5">
         <button
-          className={`px-4 py-3 rounded text-[#d4d4d4] ${
-            currentStep === 1 ? "opacity-0 cursor-default" : "cursor-pointer"
-          }`}
+          className={`px-4 py-3 rounded text-[#d4d4d4] ${currentStep === 1 ? "opacity-0 cursor-default" : "cursor-pointer"
+            }`}
           onClick={handleBack}
           disabled={currentStep === 1}
         >
@@ -289,17 +295,16 @@ const FormCard = ({ setIsSubmitted }) => {
         </button>
 
         <button
-          className={`text-white hover:text-[#cdcdcd] px-4 py-3 rounded-br-lg rounded-bl-lg flex items-center justify-center gap-3 ${
-            isNextButtonDisabled
-              ? "opacity-50 cursor-not-allowed"
-              : "cursor-pointer"
-          }`}
+          className={`text-white hover:text-[#cdcdcd] px-4 py-3 rounded-br-lg rounded-bl-lg flex items-center justify-center gap-3 ${isNextButtonDisabled
+            ? "opacity-50 cursor-not-allowed"
+            : "cursor-pointer"
+            }`}
           onClick={
             formCompleted || currentStep === 23 || currentStep === 22
               ? handleSubmit
               : handleNext
           }
-          // disabled={isNextButtonDisabled}
+        // disabled={isNextButtonDisabled}
         >
           {formCompleted || currentStep === 23 || currentStep === 22
             ? "Submit"

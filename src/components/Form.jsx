@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import FormCard from "./FormCard";
@@ -7,11 +7,14 @@ const Form = ({ handleClose }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // If the form is submitted, render the ThankYou component
+    if (isSubmitted) {
+      navigate("/payment");
+    }
+  }, [isSubmitted])
 
-  // If the form is submitted, render the ThankYou component
-  if (isSubmitted) {
-    navigate("/payment");
-  }
+
 
   return (
     <div className="flex flex-col  min-h-[550px] items-center my-2 -mt-2 sm:p-5 md:p-3 xl:p-1 rounded overflow-x-hidden z-50">
