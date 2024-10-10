@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-const PricingCard = ({ title, price, description, features, bannerColor }) => {
+const PricingCard = ({ title, price, description, features, bannerColor, noFreeTrial}) => {
   const navigate = useNavigate();
   const goToCheckoutPage = () => {
     navigate('/payment'); // Navigate to the checkout page
@@ -16,7 +16,7 @@ const PricingCard = ({ title, price, description, features, bannerColor }) => {
         <div className="text-2xl font-semibold text-gray-800 mb-1 md:text-[25px]">{price}</div>
         <p className="text-gray-500">{description}</p>
         <button onClick={goToCheckoutPage} className="bg-transparent border-[1px] border-gray-800 text-gray-800 font-semibold py-2 px-4 rounded-sm mt-6 mb-4 hover:bg-black hover:text-white lg:px-[70px]">
-          GET STARTED
+          {noFreeTrial ? "Start Now" : "Start Trial"}
         </button>
         <ul className='w-full flex flex-col items-center justify-center'>
               {features.map((feature, index) => (
@@ -56,6 +56,7 @@ const OfferCards = () => {
       bannerColor: 'bg-gradient-to-r from-purple-300 via-purple-200 to-purple-100', // Light purple for lite plan
     },
     {
+      noFreeTrial: true,
       title: 'Customer Software Deluxe',
       price: '$77,988/qtr',
       description: 'Expand functionality of existing software.',
@@ -80,11 +81,7 @@ const OfferCards = () => {
         {plans.map((plan, index) => (
           <PricingCard
             key={index}
-            title={plan.title}
-            price={plan.price}
-            description={plan.description}
-            features={plan.features}
-            bannerColor={plan.bannerColor}
+            {...plan}
           />
         ))}
       </div>
