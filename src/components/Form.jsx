@@ -10,7 +10,7 @@ const Form = ({ handleClose }) => {
   useEffect(() => {
     // If the form is submitted, render the ThankYou component
     if (isSubmitted) {
-      navigate("/payment");
+      navigate("/packages");
     }
   }, [isSubmitted])
 
