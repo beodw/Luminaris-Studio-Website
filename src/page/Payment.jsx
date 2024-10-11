@@ -60,7 +60,7 @@ const Payment = () => {
   };
 
   return (
-    <div className="mb-[100px] min-h-screen flex flex-col items-start px-4 sm:px-8 py-10 md:flex-row md:justify-center font-poppins">
+    <div className="min-h-screen flex flex-col items-start px-4 sm:px-8 py-10 md:flex-row md:justify-center font-poppins">
       <div className="bg-white w-full max-w-lg rounded-lg shadow-lg p-6 mb-10 md:mb-0 md:mr-10">
         <h1 className="text-xl font-bold mb-4 text-center">Create Your Account And Get Started</h1>
         <h2 className='text-[14px] font-thin text-gray-400 text-center -mt-2'>Create Your Account: Step 2 of 2</h2>
@@ -179,7 +179,7 @@ const Payment = () => {
       </div>
       <div className="text-left text-gray-700 mt-10 md:mt-0 hidden lg:block">
         <h2 className="text-2xl font-bold max-w-[410px]">
-          Join Entrepreneurs Who Use Software Starter To Easily Get Their Products And Message Out To The World
+        Join 100,000+ Entrepreneurs Who Use ClickFunnels To Easily Get Their Products And Message Out To The World
         </h2>
         <p className="text-md mt-4 font-bold">100% NO-RISK MVP DELIVERY</p>
         <ul className="list-disc text-xs text-gray-600" style={noBulletPointStyle}>

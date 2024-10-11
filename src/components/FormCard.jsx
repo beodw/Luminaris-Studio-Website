@@ -184,11 +184,12 @@ const FormCard = ({ setIsSubmitted }) => {
       if (lastQuestionAnswer) {
         setLoading(true); // Start loading animation
         const response = await fetch(
-          "https://3ye1yixzfj.execute-api.eu-west-1.amazonaws.com/dev/form/store",
+          "https://3ye1yixzfj.execute-api.eu-west-1.amazonaws.com/dev/payment",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
             },
             body: JSON.stringify({ answers }.answers),
           }
