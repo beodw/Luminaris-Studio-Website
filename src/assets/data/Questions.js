@@ -33,34 +33,36 @@ const questions = {
     previous: 1,
   },
   2: {
-    question: "What platform will it run on?",
+    question: "What platform will it run on? (Select all that apply)",
     type: "MultipleSelect",
     options: [
-      { name: "Mobile", required: true, type: "text", id: 1 },
+      { name: "App", required: true, type: "text", id: 1 },
       { name: "Website", required: true, type: "text", id: 2 },
-    ],
-    next: {
-      1: 3,
-      2: 3,
-    },
-    previous: 24,
-  },
-  3: {
-    question: "What best describes your company size?",
-    type: "SingleSelect",
-    required: true,
-    options: [
-      { name: "500+ employees", type: "Mcq", img: CommercialBuilding, id: 1 },
-      { name: "20 - 500 employees", type: "Mcq", img: Store, id: 2 },
-      { name: "1 - 10 employees", type: "Mcq", img: Startup, id: 3 },
+      { name: "Custom Software", required: true, type: "text", id: 3 },
     ],
     next: {
       1: 4,
       2: 4,
       3: 4,
     },
-    previous: 2,
+    previous: 24,
   },
+  // 3: {
+  //   question: "What best describes your company size?",
+  //   type: "SingleSelect",
+  //   required: true,
+  //   options: [
+  //     { name: "500+ employees", type: "Mcq", img: CommercialBuilding, id: 1 },
+  //     { name: "20 - 500 employees", type: "Mcq", img: Store, id: 2 },
+  //     { name: "1 - 10 employees", type: "Mcq", img: Startup, id: 3 },
+  //   ],
+  //   next: {
+  //     1: 4,
+  //     2: 4,
+  //     3: 4,
+  //   },
+  //   previous: 2,
+  // },
   4: {
     question: "Describe the software or idea in 3 sentences MAX",
     type: "text",
@@ -68,36 +70,34 @@ const questions = {
     next: {
       1: 5,
     },
-    previous: 3,
+    previous: 2,
   },
   5: {
-    question: "Do you need help creating high quality logos and images for you idea?",
-    type: "SingleSelect",
+    question: "What is your first and last name?",
+    type: "text",
     required: true,
     options: [
-      { name: "Yes", type: "Mcq", id: 1 },
-      { name: "No", type: "Mcq", id: 2 },
+      { name: "Frist And Last Name", type: "Mcq", id: 1 },
     ],
     next: {
-      1: 6,
-      2: 22,
+      1: 22,
     },
     previous: 4,
   },
-  6: {
-    question: "Do you already have a logo or brand images?",
-    type: "SingleSelect",
-    required: true,
-    options: [
-      { name: "Yes", type: "Mcq", id: 1 },
-      { name: "No", type: "Mcq", id: 2 },
-    ],
-    next: {
-      1: 23,
-      2: 23,
-    },
-    previous: 5,
-  },
+  // 6: {
+  //   question: "Do you already have a logo or brand images?",
+  //   type: "SingleSelect",
+  //   required: true,
+  //   options: [
+  //     { name: "Yes", type: "Mcq", id: 1 },
+  //     { name: "No", type: "Mcq", id: 2 },
+  //   ],
+  //   next: {
+  //     1: 23,
+  //     2: 23,
+  //   },
+  //   previous: 5,
+  // },
   // 7: {
   //   question: "Please attach any pictures or logos that you may have",
   //   type: "file",
@@ -129,7 +129,7 @@ const questions = {
       // { name: "No", type: "Mcq", id: 2 },
     ],
     next: {
-      1: 24,
+      1: true,
       // 2: true,
     },
     previous: 5,
@@ -142,7 +142,7 @@ const questions = {
       // { name: "No", type: "Mcq", id: 2 },
     ],
     next: {
-      1: 25,
+      1: true,
       // 2: true,
     },
     previous: 6,
