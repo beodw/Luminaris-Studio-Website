@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faPhone, faGlobe, faCreditCard, faCalendar, faLock, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
 const Payment = () => {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -14,6 +15,7 @@ const Payment = () => {
     cvv: '',
   });
 
+ 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
@@ -32,7 +34,9 @@ const Payment = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       fetch('https://sendSomeDataHere.com', {
@@ -45,6 +49,7 @@ const Payment = () => {
         console.log('Form data submitted', response);
       });
     }
+
     // To Do
     // Call API To Store Card Details
     navigate("/confirmation");
@@ -161,7 +166,7 @@ const Payment = () => {
             </div>
           </div>
           <p className='text-xs font-thin'>
-                Why? We ask for a payment method so that your subscription and business can continue without interruption after your trial ends.
+            Why? We ask for a payment method so that your subscription and business can continue without interruption after your trial ends.
           </p>
           <button
             type="submit"
@@ -179,14 +184,14 @@ const Payment = () => {
       </div>
       <div className="text-left text-gray-700 mt-10 md:mt-0 hidden lg:block">
         <h2 className="text-2xl font-bold max-w-[410px]">
-        Join 100,000+ Entrepreneurs Who Use ClickFunnels To Easily Get Their Products And Message Out To The World
+          Join 100,000+ Entrepreneurs Who Use ClickFunnels To Easily Get Their Products And Message Out To The World
         </h2>
         <p className="text-md mt-4 font-bold">100% NO-RISK MVP DELIVERY</p>
         <ul className="list-disc text-xs text-gray-600" style={noBulletPointStyle}>
-          <li className='my-2'><FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mr-2"/>Get access to all features</li>
-          <li className='my-2'><FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mr-2"/>Pay NOTHING until MVP</li>
-          <li className='my-2'><FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mr-2"/>Cancel anytime, hassle-free</li>
-          <li><FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mr-2"/>Lightening fast delivery</li>
+          <li className='my-2'><FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mr-2" />Get access to all features</li>
+          <li className='my-2'><FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mr-2" />Pay NOTHING until MVP</li>
+          <li className='my-2'><FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mr-2" />Cancel anytime, hassle-free</li>
+          <li><FontAwesomeIcon icon={faCheckCircle} className="text-green-500 mr-2" />Lightening fast delivery</li>
         </ul>
         <div className="mt-6 border-[2px] border-gray-300 p-4">
           <p className="text-xs">Plan</p>

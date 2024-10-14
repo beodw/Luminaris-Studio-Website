@@ -184,7 +184,7 @@ const FormCard = ({ setIsSubmitted }) => {
       if (lastQuestionAnswer) {
         setLoading(true); // Start loading animation
         const response = await fetch(
-          "https://3ye1yixzfj.execute-api.eu-west-1.amazonaws.com/dev/payment",
+          "https://3ye1yixzfj.execute-api.eu-west-1.amazonaws.com/dev/form",
           {
             method: "POST",
             headers: {
@@ -198,6 +198,10 @@ const FormCard = ({ setIsSubmitted }) => {
         if (!response.ok) {
           throw new Error("Submission failed");
         }
+
+        const data = await response.json();
+        console.log(data.recordId);
+        localStorage.setItem("recordId", data.recordId);
       }
 
       setTimeout(() => {

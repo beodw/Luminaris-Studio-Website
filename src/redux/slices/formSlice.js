@@ -8,6 +8,7 @@ const initialState = {
   currentStep: 1,
   answers: {},
   formCompleted: false,
+  package: "",
 };
 
 const formSlice = createSlice({
@@ -45,7 +46,7 @@ const formSlice = createSlice({
           nextStepId = question?.next?.[1];
         }
 
-        if (nextStepId  === true || currentStep === 22) {
+        if (nextStepId === true || currentStep === 22) {
           state.formCompleted = true;
 
           // Log all answers with Proxy objects converted to plain objects
@@ -71,7 +72,6 @@ const formSlice = createSlice({
         console.error("Answer is required to proceed");
       }
     },
-
     previousStep(state) {
       const currentStep = state.currentStep;
       const previousStepId = questions[currentStep]?.previous;
@@ -92,9 +92,13 @@ const formSlice = createSlice({
     resetForm(state) {
       return initialState;
     },
+    setPackage: (state, action) => {
+      const UserPackage = action.payload; 
+      state.package = UserPackage; 
+    },
   },
 });
 
-export const { nextStep, previousStep, setAnswer, resetForm } =
+export const { nextStep, previousStep, setAnswer, resetForm, setPackage } =
   formSlice.actions;
 export default formSlice.reducer;

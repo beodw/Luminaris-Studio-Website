@@ -22,11 +22,13 @@ const questions = {
     },
     previous: 0,
   },
-  24:{
+  24: {
     question: "What is your best email?",
     type: "text",
     required: true,
-    options: [ { name: "JohnDoe@gmail.com", required: true, type: "email", id: 1 } ],
+    options: [
+      { name: "JohnDoe@gmail.com", required: true, type: "email", id: 1 },
+    ],
     next: {
       1: 2,
     },
@@ -39,11 +41,13 @@ const questions = {
       { name: "App", required: true, type: "text", id: 1 },
       { name: "Website", required: true, type: "text", id: 2 },
       { name: "Custom Software", required: true, type: "text", id: 3 },
+      { name: "Modify Existing Code", required: true, type: "text", id: 4 },
     ],
     next: {
       1: 4,
       2: 4,
       3: 4,
+      4: 4,
     },
     previous: 24,
   },
@@ -76,9 +80,7 @@ const questions = {
     question: "What is your first and last name?",
     type: "text",
     required: true,
-    options: [
-      { name: "Frist And Last Name", type: "Mcq", id: 1 },
-    ],
+    options: [{ name: "First And Last Name", type: "Mcq", id: 1 }],
     next: {
       1: 22,
     },
@@ -146,7 +148,7 @@ const questions = {
       // 2: true,
     },
     previous: 6,
-  }
+  },
 };
 
 export default questions;
