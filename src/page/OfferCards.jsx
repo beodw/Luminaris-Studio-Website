@@ -52,7 +52,7 @@ const PricingCard = ({ title, price, description, features, bannerColor, noFreeT
           const result = await response.json();
           console.log("Package updated successfully", result);
 
-          navigate('/payment'); // Redirect after API success
+          navigate('/confirmation'); // Redirect after API success
         } catch (error) {
           console.error("Error updating package:", error);
         } finally {
