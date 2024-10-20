@@ -4,7 +4,7 @@ import logo from "../assets/images/logo.png";
 
 const Footer = () => {
   return (
-    <footer className="site-footer bg-blue-800">
+    <footer className="site-footer bg-blue-800 w-screen">
       <div className="container">
         <div className="site-footer-inner has-top-divider flex justify-between">
           <div className="w-full flex justify-center">

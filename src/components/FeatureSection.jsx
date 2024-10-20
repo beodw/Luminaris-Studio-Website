@@ -5,13 +5,16 @@ import featureContent from "../assets/data/FeatureContent"; // Import the conten
 const FeatureSection = () => {
   const { sectionTitle, sectionParagraph, features } = featureContent;
 
+  const firstWord = sectionTitle.split(" ")[0];
+  const restOfTitle = sectionTitle.split(" ")[1];
+
   return (
-    <section className="features section">
+    <section className="features section max-w-[320px] md:max-w-[1000px] lg:max-w-[1024px] 2xl:max-w-[2048px]">
       <div className="container">
         <div className="features-inner section-inner">
           <div className="features-header text-center">
             <div className="container-sm">
-              <h2 className="section-title mt-0">{sectionTitle}</h2>
+              <h2 className="section-title mt-0 text-[40px] md:text-[60px]"><span>{firstWord}</span> <span className="text-blue-700">{restOfTitle}</span></h2>
               <p className="section-paragraph">{sectionParagraph}</p>
             </div>
           </div>
@@ -26,7 +29,8 @@ const FeatureSection = () => {
                     {feature.icon}
                   </div>
                   <h4 className="feature-title h3-mobile mb-8">
-                    {feature.title}
+                    <span>{feature.title.split(" ")[0]}</span> {/* First section of title*/}
+                    <span className="text-blue-700">{feature.title.split(" ")[1]}</span> {/* Rest of title*/}
                   </h4>
                   <p className="text-sm">{feature.description}</p>
                 </div>

@@ -5,7 +5,7 @@ import testimonalContent from "../assets/data/TestimonalContent";
 
 const TestimonalSection = () => {
   return (
-    <section className="testimonials section">
+    <section className="testimonials section max-w-[320px] md:max-w-[1000px] lg:max-w-[1024px] 2xl:max-w-[2048px]">
       <div className="testimonials-shape testimonials-shape-1">
         <svg
           width="280"

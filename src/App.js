@@ -13,7 +13,7 @@ import Payment from "./page/Payment";
 function App() {
   return (
     <div className="flex flex-col justify-between h-screen font-poppins">
-      <img className="absolute top-0 left-0 h-screen w-screen -z-30 opacity-25" src={background}/>
+      <img className="absolute top-0 left-0 h-full w-screen -z-30 opacity-10" src={background}/>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
