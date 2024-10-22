@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setPackage } from "../redux/slices/formSlice";
+import packagesData from '../assets/data/PricingData';
 
 const PricingCard = ({ title, price, description, features, bannerColor, noFreeTrial, highlight }) => {
   const navigate = useNavigate();
@@ -115,43 +116,6 @@ const OfferCards = () => {
     }
   }, [answers]);
 
-  const plans = [
-    {
-      title: 'MVP Kickstarter',
-      price: '$32,499/qtr',
-      description: 'Turn your website or app idea into a reality.',
-      features: [
-        { label: 'Dedicated Trello task board', included: true },
-        { label: 'Access to 1-1 slack channel', included: false },
-        { label: 'Website and app launch to any store', included: false },
-      ],
-      bannerColor: 'bg-gradient-to-r from-gray-100 to-white',
-    },
-    {
-      title: 'Custom Software Builder',
-      price: '$64,999/qtr',
-      description: 'Solve unique problems with custom built software.',
-      features: [
-        { label: 'Everything in MVP Kickstarter', included: true },
-        { label: '1-1 zoom consultation over 50% faster development', included: true },
-        { label: 'Custom integration to best fit your organisation and team', included: true },
-      ],
-      bannerColor: 'bg-gradient-to-r from-purple-300 via-purple-200 to-purple-100',
-    },
-    {
-      noFreeTrial: true,
-      title: 'Customer Software Deluxe',
-      price: '$77,988/qtr',
-      description: 'Expand functionality of existing software.',
-      features: [
-        { label: 'Everything in Custom Software', included: true },
-        { label: 'Bug fixes of existing code', included: true },
-        { label: 'Improve existing code base', included: true },
-      ],
-      bannerColor: 'bg-gradient-to-r from-yellow-300 via-yellow-200 to-orange-200',
-    },
-  ];
-
   return (
     <div className='flex flex-col items-center justify-center 2xl:justify-start 2xl:h-full 2xl:mt-4'>
       <h1 className='font-poppins text-center text-blue-500 text-lg  text-wrap w-[250px] md:w-[500px] md:text-2xl'>
@@ -161,7 +125,7 @@ const OfferCards = () => {
         No need for any technical expertise. Eliminate hassle of building a technical team
       </h12>
       <div className=" mb-4 font-poppins flex flex-col w-full md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-6 mt-12">
-        {plans.map((plan, index) => (
+        {packagesData.map((plan, index) => (
           <PricingCard
             key={index}
             {...plan}

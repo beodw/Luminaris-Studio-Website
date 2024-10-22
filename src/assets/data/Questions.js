@@ -51,22 +51,6 @@ const questions = {
     },
     previous: 24,
   },
-  // 3: {
-  //   question: "What best describes your company size?",
-  //   type: "SingleSelect",
-  //   required: true,
-  //   options: [
-  //     { name: "500+ employees", type: "Mcq", img: CommercialBuilding, id: 1 },
-  //     { name: "20 - 500 employees", type: "Mcq", img: Store, id: 2 },
-  //     { name: "1 - 10 employees", type: "Mcq", img: Startup, id: 3 },
-  //   ],
-  //   next: {
-  //     1: 4,
-  //     2: 4,
-  //     3: 4,
-  //   },
-  //   previous: 2,
-  // },
   4: {
     question: "Describe the software or idea in 3 sentences MAX",
     type: "text",
@@ -80,11 +64,21 @@ const questions = {
     question: "What is your first and last name?",
     type: "text",
     required: true,
-    options: [{ name: "First And Last Name", type: "Mcq", id: 1 }],
+    options: [{ name: "E.g. John Doe", type: "Mcq", id: 1 }],
+    next: {
+      1: 3,
+    },
+    previous: 4,
+  },
+  3: {
+    question: "What is your brand or company name?",
+    type: "text",
+    required: true,
+    options: [{ name: "Brand Name", type: "Mcq", id: 1 }],
     next: {
       1: 22,
     },
-    previous: 4,
+    previous: 5,
   },
   // 6: {
   //   question: "Do you already have a logo or brand images?",
