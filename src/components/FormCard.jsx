@@ -175,8 +175,10 @@ const FormCard = ({ setIsSubmitted }) => {
     }
   };
 
+  
   const handleSubmit = async () => {
     try {
+    
       setLoading(true); // Start loading animation
       const lastQuestionAnswer = answers["22"] || answers["23"];
 

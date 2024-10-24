@@ -41,6 +41,7 @@ const PricingCard = ({ title, price, description, features, bannerColor, noFreeT
                 form: answers,
                 subscriber: answers[5][1],
                 package: selectedPackage,
+                company: answers[3][1],
                 recordId,
               }),
             }
@@ -53,11 +54,11 @@ const PricingCard = ({ title, price, description, features, bannerColor, noFreeT
           const result = await response.json();
           console.log("Package updated successfully", result);
 
-          navigate('/confirmation'); // Redirect after API success
+          navigate('/confirmation');
         } catch (error) {
           console.error("Error updating package:", error);
         } finally {
-          setLoading(false); // Stop loading after API response
+          setLoading(false); 
         }
       }
     };
