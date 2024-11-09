@@ -8,9 +8,10 @@ const Form = ({ handleClose }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    
     // If the form is submitted, render the ThankYou component
     if (isSubmitted) {
-      navigate("/packages");
+      navigate("/confirmation");
     }
   }, [isSubmitted])
 
