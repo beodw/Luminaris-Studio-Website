@@ -21,18 +21,18 @@ const Form = ({ handleClose }) => {
     <div className="flex flex-col  min-h-[550px] items-center my-2 -mt-2 sm:p-5 md:p-3 xl:p-1 rounded overflow-x-hidden z-50">
       <div className="flex flex-col items-center mb-[12px]">
         <h2 className="text-[15px] md:text-[32px] 2xl:text-[50px] pt-[30px] max-w-[1000px] 2xl:max-w-[2000px] mx-auto  mt-[30px] font-poppins font-extrabold">
-          <span>DO YOU WANT TO</span>{" "}
-          <span className="text-blue-700">BUILD SOME SOFTWARE</span>
+          <span>ARE YOU</span>{" "}
+          <span className="text-blue-700">BUILDING SOME SOFTWARE</span>
           <span>?</span>
         </h2>
         <p className="text-[11px] md:text-[20px] -mt-4 font-poppins md:hidden">
-          Human made software in weeks not months.
+          We give you human made software without the hassle of hiring.
         </p>
         <p className="text-[11px] md:text-[17px] -mt-4 font-poppins md:hidden">
           Click below to get started.
         </p>
         <p className="text-[11px] md:text-[17px] 2xl:text-[20px] 2xl:-mt-2 -mt-4 font-poppins hidden md:flex">
-          Human made software in weeks not months click below to get started.
+          We give you human made software without the hassle of hiring.
         </p>
       </div>
       <FormCard setIsSubmitted={setIsSubmitted} />

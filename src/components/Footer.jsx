@@ -4,7 +4,7 @@ import logo from "../assets/images/logo.png";
 
 const Footer = () => {
   return (
-    <footer className="site-footer bg-blue-800 w-screen">
+    <footer className="site-footer bg-black w-screen absolute bottom-0">
       <div className="container">
         <div className="site-footer-inner has-top-divider flex justify-between">
           <div className="w-full flex justify-center">
@@ -117,7 +117,7 @@ const Footer = () => {
             </li>
           </ul> */}
           <div className="flex justify-center w-full text-white text-[10px]">
-            &copy; {new Date().getFullYear()} April, all rights reserved
+            &copy; {new Date().getFullYear()} all rights reserved
           </div>
         </div>
       </div>

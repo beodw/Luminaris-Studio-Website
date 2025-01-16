@@ -1,20 +1,26 @@
 import React from "react";
-import FeatureSection from "../components/FeatureSection";
-import TestimonalSection from "../components/TestimonalSection";
-import NewsLetterSection from "../components/NewsLetterSection";
 import "../assets/styles/scss/layout/_main.scss";
-import Form from "../components/Form";
+import "../assets/styles/scss/layout/_features.scss";
+import featureContent from "../assets/data/FeatureContent"; // Import the content
+import OfferSection from "../components/OfferSection";
+import CTASection from "../components/CTASection";
+import TestimonialSection from "../components/TestimonialSection";
+import Footer from "../components/Footer";
+import OurProcess from "../components/OurProcess";
 
 const Home = () => {
-  return (
-    <div className="mx-auto">
-      <main className="overflow-hidden">
-        <Form />
-        <FeatureSection />
-        <TestimonalSection />
-        {/* <NewsLetterSection /> */}
-      </main>
-    </div>
+  const { sectionTitle, sectionParagraph, features } = featureContent;
+
+  const firstWord = sectionTitle.split(" ")[0];
+  const restOfTitle = sectionTitle.split(" ")[1];
+  return(
+    <div class="flex flex-col transparent">
+              <CTASection />
+              <OfferSection />
+              <TestimonialSection />
+              <OurProcess />
+              <Footer/>
+      </div>
   );
 };
 
